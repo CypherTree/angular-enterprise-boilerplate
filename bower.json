@@ -1,0 +1,46 @@
+{
+  "name": "sc-client",
+  "version": "0.0.1",
+  "authors": [
+    "Madhusudhan Srinivasa <madhu@changer.nl>"
+  ],
+  "description": "Safety Changer client apps",
+  "keywords": [
+    "angular",
+    "bower",
+    "gulp"
+  ],
+  "license": "Safety Changer",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.4.7",
+    "angular-resource": "1.4.7",
+    "angular-route": "1.4.7",
+    "angular-touch": "1.4.7",
+    "angular-translate": "2.4.2",
+    "angular-ui-router": "0.2.15",
+    "angular-animate": "1.4.7",
+    "bootstrap": "3.3.5",
+    "components-font-awesome": "4.2.0",
+    "jquery": "2.1.1",
+    "less": "1.7.5",
+    "moment": "~2.8.3",
+    "animate.less": "*"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.4.7"
+  },
+  "resolutions": {
+    "angular": "1.4.7",
+    "angular-ui-router": "~0.2.15",
+    "angular-animate": "1.4.7"
+  }
+}

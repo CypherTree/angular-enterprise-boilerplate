@@ -1,0 +1,259 @@
+#!/usr/bin/env node
+'use strict';
+
+/*!
+ * zap
+ * @author Madhusudhan Srinivasa <madhu@changer.nl>
+ * Copyright(c) 2014
+ */
+
+/*!
+ * Module dependencies.
+ */
+
+var fs = require('fs');
+var ejs = require('ejs');
+var program = require('commander');
+var pkg = require('../package.json');
+var write = fs.writeFileSync;
+var mkdir = fs.mkdirSync;
+var cwd = process.cwd();
+var locales = fs.readdirSync(cwd + '/public/locales');
+var bin = __dirname;
+var aPath = cwd + '/public/apps';     // app path
+var cPath = cwd + '/components';      // components path
+var ePath = cwd + '/public/elements';        // elements path
+var eol = '\n';
+
+
+// version
+program
+  .option('-wc, --webcomponents', 'Use Web components instead of angular')
+  .version(pkg.version);
+
+
+// component
+program
+  .command('component <name> [app] [module]')
+  .description('Add a new component <name>')
+  .action(function (name, _app, module) {
+    var component = cPath + '/' + name;
+    mkdir(component);
+    write(component + '/' + name + '.js', content('component.js', name));
+    write(component + '/README.md', '## ' + name + eol);
+    write(component + '/' + name + '_test.js', content('_test.js', {
+      name: 'sc-' + name,
+      mod: true
+    }));
+    console.log('Added new component "components/' + name + '"');
+
+    var dependency = name + '/' + name + '.js';
+    if (_app) {
+      var app = json(_app);
+      // push only if it doesn't exist
+      if (!~app.components.indexOf(dependency)) {
+        app.components.push(dependency);
+      }
+      addDependency(_app, 'sc-' + name, module);
+      write(path(_app), JSON.stringify(app, null, 2) + eol);
+    }
+  });
+
+
+// element
+program
+  .command('element <name> [app] [module]')
+  .description('Add a new element <name>')
+  .action(function (name, _app, module) {
+    var element = ePath + '/' + name;
+    mkdir(element);
+    write(element + '/' + name + '.html', content('element.html', name));
+    // write(element + '/' + name + '.less', eol + '// ' + name);
+    write(element + '/README.md', '## ' + name + eol);
+    // write(element + '/' + name + '_test.js', content('_test.js', {
+    //   name: 'sc-' + name,
+    //   mod: true
+    // }));
+    console.log('Added new element "public/elements/' + name + '"');
+  });
+
+
+// app
+program
+  .command('app <name>')
+  .description('Add a new app <name>')
+  .action(function (name) {
+    var app = aPath + '/' + name;
+
+    mkdir(app);
+    mkdir(app + '/templates');
+    write(app + '/templates/app.html', '<h1>'+ name +'</h1>');
+    write(app + '/app.js', content('app.js', name));
+    write(app + '/app.json', content('app.json', name));
+    write(app + '/app.less', content('app.less', name));
+    write(app + '/app.variables.less', content('app.variables.less', name));
+    write(app + '/app_test.js', content('_test.js', {
+      name: name,
+      mod: false
+    }));
+    write(app + '/app.test.config.js', content('app.test.config.js'));
+    write(app + '/README.md', '## ' + name + eol);
+    write(app + '/CHANGELOG.md', '## Changelog' + eol);
+    write(app + '/karma.conf.js', content('app.karma.conf.js', name));
+    write(app + '/development.html', content('development.html', name));
+    write(app + '/production.html', content('production.html', name));
+
+    var out = [];
+    // add locale files
+    locales.forEach(function (locale) {
+      var applocale = 'public/locales/' + locale + '/' + name + '.json';
+      out.push(applocale);
+      write(cwd + '/' + applocale, '{}');
+    });
+
+    console.log('Added new app "public/apps/'+ name +'"');
+    console.log('Also added the following locale files');
+    console.log(out.join(eol));
+  });
+
+
+// module
+program
+  .command('module <name> <app> [route] [ctrl]')
+  .description('Add a new module <name> inside <app>')
+  .action(function (name, _app, route, ctrl) {
+    var mod = aPath + '/' + _app + '/' + name;
+    var obj = {
+      name: name,
+      app: _app,
+      route: route,
+      ctrl: ctrl,
+      capitalize: function (str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+    };
+
+    mkdir(mod);
+    write(mod + '/README.md', '## ' + name + eol);
+    write(mod + '/' + name + '.js', content('module.js', obj));
+    write(mod + '/' + name + '.less', content('module.less', name));
+    write(mod + '/' + name + '.html', content('module.html', name));
+    write(mod + '/' + name + '_test.js', content('_test.js', {
+      name: name,
+      mod: false
+    }));
+
+    // add module as dependency to app.json and re-write it
+    var dependency = name + '/' + name + '.js';
+    var app = json(_app);
+    // Push only if module is not added to files array
+    if (!~app.files.indexOf(dependency)) {
+      app.files.push(dependency);
+    }
+    write(path(_app), JSON.stringify(app, null, 2) + eol);
+    addDependency(_app, name);
+
+    console.log('Added new module "public/apps/'+ _app +'/'+ name +'"');
+  });
+
+
+// parse
+program.parse(process.argv);
+
+
+/**
+ * get content
+ */
+
+function content (filename, name) {
+  var obj = { name: name };
+  if (typeof name === 'object') {
+    obj = name;
+  }
+  var file = read(bin + '/templates/' + filename);
+  return ejs.render(file, obj);
+}
+
+
+/**
+ * read file
+ */
+
+function read (path) {
+  return fs.readFileSync(path, 'utf-8');
+}
+
+
+/**
+ * get app.json for an app
+ */
+
+function json (app) {
+  var appjson = path(app);
+  return JSON.parse(read(appjson));
+}
+
+
+/**
+ * get path for an app
+ */
+
+function path (app) {
+  return aPath + '/' + app + '/app.json';
+}
+
+
+/**
+ * add module as dependency
+ */
+
+function addDependency (app, dep, module) {
+  var appjs;
+  if (module) {
+    appjs = aPath + '/' + app + '/' + module + '/' + module + '.js';
+  } else {
+    appjs = aPath + '/' + app + '/app.js';
+  }
+  var str = read(appjs);
+  var ngmod = 'angular.module(\'' + (module || app) + '\'';
+  var ngModIndex = str.indexOf(ngmod);
+
+  // cannot find angular.module definition for the app
+  if (!~ngModIndex) return;
+
+  var startpos;
+  var endpos;
+
+  for (var i = 0, found = false; ((i < str.length) && !found); i++) {
+    var current = ngModIndex + ngmod.length + i;
+    if (str.charAt(current) === '[') {
+      startpos = current;
+    }
+    if (str.charAt(current) === ']') {
+      endpos = current;
+      found = true;
+    }
+  }
+
+  // could not find
+  if (!found || !startpos || !endpos) return;
+
+  var dependencies = str.slice(startpos, endpos + 1);
+  // remove newlines and spaces
+  dependencies = dependencies
+    .replace(/(\r\n|\n|\r)/gm, '')
+    .replace(/ /g, '');
+
+  dependencies = eval(dependencies);  // jshint ignore:line
+
+  // Push to dependencies only if it doesn't exist
+  if (!~dependencies.indexOf(dep)) {
+    dependencies.push(dep);
+  }
+
+  dependencies = dependencies.sort(); // sort
+
+  var dep = '[\n  \'' + dependencies.join('\',\n  \'') + '\'' + eol;
+  var s = str.substr(0, startpos) + dep + str.substr(endpos);
+  write(appjs, s);
+}

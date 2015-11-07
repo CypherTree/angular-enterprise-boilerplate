@@ -1,0 +1,65 @@
+// height 100%
+// ------------------------------------------
+.full-height {
+  height: 100%;
+}
+
+// remove padding
+// ---------------------------------------------------
+
+.remove-padding-left (@padding) {
+  padding-left: @padding;
+}
+
+.remove-padding-right (@padding) {
+  padding-right: @padding;
+}
+
+.remove-padding-top (@padding) {
+  padding-top: @padding;
+}
+
+.remove-padding-bottom (@padding) {
+  padding-bottom: @padding;
+}
+
+.remove-padding-lr (@padding) {
+  .remove-padding-left(@padding);
+  .remove-padding-right(@padding);
+}
+
+.remove-padding-tb (@padding) {
+  .remove-padding-top(@padding);
+  .remove-padding-bottom(@padding);
+}
+
+.remove-padding-all {
+  padding: 0;
+}
+
+// add padding
+// ---------------------------------------------------
+
+.add-padding-lr (@padding: @grid-gutter-width) {
+  padding-left: (@padding / 2);
+  padding-right: (@padding / 2);
+}
+
+.add-padding-tb (@padding: @grid-gutter-width) {
+  padding-top: (@padding / 2);
+  padding-bottom: (@padding / 2);
+}
+
+.add-padding-all (@padding: @grid-gutter-width) {
+  padding: (@padding / 2);
+}
+
+// mixin for calc css
+// ---------------------------------------------------
+
+.calculate(@property, @expression) {
+  @{property}: -webkit-calc(~'@{expression}');
+     @{property}: -moz-calc(~'@{expression}');
+       @{property}: -o-calc(~'@{expression}');
+          @{property}: calc(~'@{expression}');
+}

@@ -1,0 +1,17 @@
+{
+  "testing": {
+    "key": "KEY",
+    "secret": "SECRET",
+    "bucket": "BUCKET"
+  },
+  "staging": {
+    "key": "KEY",
+    "secret": "SECRET",
+    "bucket": "BUCKET"
+  },
+  "production": {
+    "key": "KEY",
+    "secret": "SECRET",
+    "bucket": "BUCKET"
+  }
+}

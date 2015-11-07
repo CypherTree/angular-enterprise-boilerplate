@@ -1,0 +1,21 @@
+{
+  "name": "storeapp",
+  "version": "0.0.1",
+  "dependencies": [
+    "jquery/dist/jquery.js",
+    "angular/angular.js",
+    "angular-resource/angular-resource.js",
+    "angular-touch/angular-touch.js",
+    "angular-animate/angular-animate.js",
+    "angular-translate/angular-translate.js",
+    "angular-ui-router/release/angular-ui-router.js",
+    "moment/moment.js"
+  ],
+  "components": [
+    "translate/translate.js",
+    "interceptors/interceptors.js"
+  ],
+  "files": [
+    "app.js"
+  ]
+}

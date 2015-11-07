@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+  <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title ng-bind="pageTitle + ' - Safety Changer'">Safety Changer</title>
+    <meta name="description" content="">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+    <link id="favicon" rel="shortcut icon" href="img/favico-<%= name %>.png" sizes="16x16 32x32 48x48" type="image/png" />
+
+    <!-- Start of safetychanger Zendesk Widget script -->
+    <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(c){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("//assets.zendesk.com/embeddable_framework/main.js","safetychanger.zendesk.com");/*]]>*/</script>
+    <!-- End of safetychanger Zendesk Widget script -->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    </script>
+
+    <!-- css and js -->
+    <link rel="stylesheet" href="app.min.css" />
+    <script src="app.min.js" type="text/javascript"></script>
+
+  </head>
+  <body ng-controller="AppCtrl">
+    <!--[if lt IE 10]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Header -->
+
+    <div class="header">
+      <!-- icon is a fontawesome icon without fa- prefix -->
+      <sc-header
+        name="<%= name %>"
+        icon="circle-o">
+      </sc-header>
+    </div>
+
+
+    <div id="wrapper" ng-class="{ 'sidebar-open': sidebarOpen }">
+
+      <!-- Sidebar -->
+
+      <sc-sidebar
+        items="sidebar.items">
+      </sc-sidebar>
+
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div ui-view class="main-content" role="main"></div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

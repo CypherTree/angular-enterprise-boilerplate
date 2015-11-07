@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+  <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title ng-bind="pageTitle + ' - Safety Changer'">Safety Changer</title>
+    <meta name="description" content="">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+    <script>
+      window.CONFIG = window.CONFIG || {
+        host: 'http://api.testing.safetychanger.com',
+        uri: '/api/storeapp/1.0/',
+        app_name: 'storeapp',
+        statics: ''
+      };
+    </script>
+
+    <!-- INSERT_SCRIPTS -->
+
+    <script>
+      (function () {
+        window.locales = {};
+        window.less = {
+          logLevel: 0
+        };
+
+        // load this in order to avoid FOUC (flash of untranslated content)
+        // http://pascalprecht.github.io/angular-translate/docs/en/#/guide/10_asynchronous-loading#foucflashofuntranslatedcontent
+        $.ajax({
+          url: window.CONFIG.statics + 'locales/en/' + window.CONFIG.app_name + '.json',
+          async: false,
+          success: function (data) {
+            window.locales.en = data;
+          }
+        });
+
+        var link = document.createElement('link');
+        link.rel = 'stylesheet/less';
+        link.href = window.CONFIG.statics + 'apps/' + window.CONFIG.app_name + '/app.less';
+        link.type = 'text/css';
+        $('head').append(link);
+
+        var lessjs = document.createElement('script');
+        lessjs.type = 'text/javascript';
+        lessjs.src = window.CONFIG.statics + 'bower_components/less/dist/less-1.7.5.js';
+        $('head').append(lessjs);
+      })();
+    </script>
+
+  </head>
+  <body ng-controller="AppCtrl">
+    <!-- Header -->
+
+    <div class="header">
+      Header
+    </div>
+
+    <div id="wrapper">
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="" ui-view></div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

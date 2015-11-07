@@ -1,0 +1,37 @@
+box: wercker/nodejs
+
+# Build definition
+build:
+  steps:
+    - npm-install
+    - npm-test
+    - script:
+        name: configure git
+        code: |-
+          git config --global user.email $GIT_EMAIL
+          git config --global user.name $GIT_USER
+
+          # remove current .git folder
+          rm -rf .git
+    - script:
+        name: push to art-boutique-ui fork to trigger prerelease or delete the branch
+        code: |-
+          git init
+          git checkout -b $WERCKER_GIT_BRANCH
+          git add .
+          git commit -m "deploy commit from $WERCKER_STARTED_BY"
+          $GIT_CHANGE
+
+  after-steps:
+      - wantedly/pretty-slack-notify:
+          webhook_url: $SLACK_WEBHOOK_URL
+
+deploy:
+  steps:
+    - script:
+        name: deploy storeapp
+        code: ./node_modules/.bin/gulp release:storeapp && ./node_modules/.bin/gulp publish:storeapp
+
+  after-steps:
+      - wantedly/pretty-slack-notify:
+          webhook_url: $SLACK_WEBHOOK_URL
