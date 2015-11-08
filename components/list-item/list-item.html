@@ -9,8 +9,7 @@
   </div>
 
   <div class="detail" ng-if="layout !== 'tile'"
-    ng-class="{ hybrid: layout === 'hybrid' }"
-    ng-show="showDetail">
+    ng-class="{ hybrid: layout === 'hybrid', 'ng-hide': !active }">
 
     <span class="pull-right" ng-click="hideDetail()">close</span>
 

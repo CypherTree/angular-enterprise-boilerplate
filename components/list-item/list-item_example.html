@@ -23,14 +23,17 @@
         angular.module('list-item-example', [ 'list-item' ])
 
         .controller('AppCtrl', function ($scope) {
-          $scope.model = {
-            name: 'Shubh Labh Stickers',
-            price: 100,
-            brand: 'DIY Station',
-            quantity: 1,
-            image_url: 'http://dummyimage.com/600x400/000/fff',
-            details_link: '/product/item1'
-          }
+          $scope.models = [1,2,3,4,5,6,7,8,9].map(function (id) {
+            return {
+              id: id,
+              name: 'Shubh Labh Stickers',
+              price: 100,
+              brand: 'DIY Station',
+              quantity: 1,
+              image_url: 'http://dummyimage.com/600x400/000/fff',
+              details_link: '/product/item1'
+            };
+          })
         });
 
       })();
@@ -48,40 +51,9 @@
       <div id="page-content-wrapper" ng-view>
         <div class="container" ng-controller="AppCtrl">
 
-          <div class="row">
-            <ab-list-item ng-model="model"
-              sticker="Only 1 left"
-              image="http://dummyimage.com/600x400/000/fff"
-              template="list-item_example_template.html"
-              layout="hybrid">
-
-            </ab-list-item>
-
-            <ab-list-item ng-model="model"
-              sticker="Only 1 left"
-              image="http://dummyimage.com/600x400/000/fff"
-              template="list-item_example_template.html"
-              layout="hybrid">
-
-            </ab-list-item>
-
-            <ab-list-item ng-model="model"
-              sticker="Only 1 left"
-              image="http://dummyimage.com/600x400/000/fff"
-              template="list-item_example_template.html"
-              layout="hybrid">
-
-            </ab-list-item>
-
-            <ab-list-item ng-model="model"
-              sticker="Only 1 left"
-              image="http://dummyimage.com/600x400/000/fff"
-              template="list-item_example_template.html"
-              layout="hybrid">
-
-            </ab-list-item>
-
-            <ab-list-item ng-model="model"
+          <div class="row product-list">
+            <ab-list-item ng-repeat="model in models"
+              ng-model="model"
               sticker="Only 1 left"
               image="http://dummyimage.com/600x400/000/fff"
               template="list-item_example_template.html"
