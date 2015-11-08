@@ -18,16 +18,8 @@ module.exports = function (config) {
       '../public/bower_components/angular-resource/angular-resource.js',
       '../public/bower_components/angular-translate/angular-translate.js',
       '../public/bower_components/angular-animate/angular-animate.js',
-      '../public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       '../public/bower_components/angular-mocks/angular-mocks.js',
-      '../public/bower_components/sc-components/dist/sc-components.js',
-      '../public/bower_components/pnotify/pnotify.core.js',
-      '../public/bower_components/pnotify/pnotify.buttons.js',
-      '../public/bower_components/angular-pnotify/src/angular-pnotify.js',
-      '../public/bower_components/angular-ui-tree/dist/angular-ui-tree.js',
       '../public/bower_components/angular-ui-router/release/angular-ui-router.js',
-      '../public/bower_components/ng-file-upload/angular-file-upload-all.js',
-      '../public/bower_components/angular-busy/dist/angular-busy.js',
 
       // templates
       '**/*.html',
