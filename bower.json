@@ -1,16 +1,16 @@
 {
-  "name": "sc-client",
+  "name": "art-boutique-ui",
   "version": "0.0.1",
   "authors": [
-    "Madhusudhan Srinivasa <madhu@changer.nl>"
+    "Anit Rai <anit.rai@cyphertree.com>"
   ],
-  "description": "Safety Changer client apps",
+  "description": "Art Boutique UI",
   "keywords": [
     "angular",
     "bower",
     "gulp"
   ],
-  "license": "Safety Changer",
+  "license": "Cyphertree",
   "private": false,
   "ignore": [
     "**/.*",

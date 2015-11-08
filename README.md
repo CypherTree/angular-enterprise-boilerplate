@@ -1,3 +1,5 @@
+[![wercker status](https://app.wercker.com/status/965e1d683b6d33b0bf73de2556f3a7eb/m "wercker status")](https://app.wercker.com/project/bykey/965e1d683b6d33b0bf73de2556f3a7eb)
+
 ## art-boutique-ui
 
 Art boutique UI
