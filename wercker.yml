@@ -1,4 +1,4 @@
-box: wercker/nodejs
+box: nodesource/trusty
 
 # Build definition
 build:
