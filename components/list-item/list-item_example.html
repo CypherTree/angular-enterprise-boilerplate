@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>theArt Boutique</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <link rel="stylesheet/less" type="text/css" href="list-item.less">
+
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
+    <script src="list-item.js"></script>
+
+    <!-- ANGULAR APP EXAMPLE -->
+    <script>
+      (function () {
+        angular.module('list-item-example', [ 'list-item' ])
+
+        .controller('AppCtrl', function ($scope) {
+          $scope.model = {
+            name: 'Shubh Labh Stickers',
+            price: 100,
+            brand: 'DIY Station',
+            quantity: 1,
+            image_url: 'http://dummyimage.com/600x400/000/fff',
+            details_link: '/product/item1'
+          }
+        });
+
+      })();
+    </script>
+
+  </head>
+  <body ng-app="list-item-example">
+    <!-- Header -->
+
+    <div class="header">
+      <h1 class="text-center">List item example</h1>
+    </div>
+
+    <div id="wrapper">
+      <div id="page-content-wrapper" ng-view>
+        <div class="container" ng-controller="AppCtrl">
+
+          <div class="row">
+            <ab-list-item ng-model="model"
+              sticker="Only 1 left"
+              image="http://dummyimage.com/600x400/000/fff"
+              template="list-item_example_template.html"
+              layout="hybrid">
+
+            </ab-list-item>
+
+            <ab-list-item ng-model="model"
+              sticker="Only 1 left"
+              image="http://dummyimage.com/600x400/000/fff"
+              template="list-item_example_template.html"
+              layout="hybrid">
+
+            </ab-list-item>
+
+            <ab-list-item ng-model="model"
+              sticker="Only 1 left"
+              image="http://dummyimage.com/600x400/000/fff"
+              template="list-item_example_template.html"
+              layout="hybrid">
+
+            </ab-list-item>
+
+            <ab-list-item ng-model="model"
+              sticker="Only 1 left"
+              image="http://dummyimage.com/600x400/000/fff"
+              template="list-item_example_template.html"
+              layout="hybrid">
+
+            </ab-list-item>
+
+            <ab-list-item ng-model="model"
+              sticker="Only 1 left"
+              image="http://dummyimage.com/600x400/000/fff"
+              template="list-item_example_template.html"
+              layout="hybrid">
+
+            </ab-list-item>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
