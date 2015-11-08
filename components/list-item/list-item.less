@@ -1,0 +1,42 @@
+.ab-list-item {
+  display: inline-block;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+
+  .tile {
+    height: 200px;
+    width: 250px;
+    position: relative;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    .sticker {
+      position: absolute;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: pink;
+      max-width: 60%;
+      max-height: 60px;
+    }
+  }
+
+  .detail {
+    position: absolute;
+    padding: 40px;
+    top: auto;
+    left: 0;
+    width: 100%;
+    background-color: lightgray;
+  }
+}

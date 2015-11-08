@@ -1,0 +1,27 @@
+<div>
+  <div class="row">
+    <div class="col-md-5">
+      <img class="img-item-detail pull-right" ng-src="{{ item.image_url }}">
+    </div>
+
+    <div class="col-md-7">
+      <div class="pull-left">
+        <div>{{ item.name }}</div>
+        <div>{{ item.price }}</div>
+        <div>Brand
+          <a ng-href="/collections/vendors?q={{item.brand}}">
+            {{ item.brand }}
+          </a>
+        </div>
+        <div>Quantity <input class="input-xs" type="text"> </div>
+        <div>
+          <button type="btn">Add to cart</button>
+        </div>
+
+        <div>
+          <a ng-href="/products/{{ item.name }}">More details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

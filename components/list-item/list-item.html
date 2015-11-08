@@ -1,0 +1,21 @@
+<div class="ab-list-item">
+  <div class="tile" ng-if="layout !== 'detail'"
+    ng-class="{ hybrid: layout === 'hybrid' }"
+    ng-click="triggerDetail()">
+
+    <img class="img-thumbnail" ng-src="{{ image }}">
+
+    <div class="sticker">{{ sticker }}</div>
+  </div>
+
+  <div class="detail" ng-if="layout !== 'tile'"
+    ng-class="{ hybrid: layout === 'hybrid' }"
+    ng-show="showDetail">
+
+    <span class="pull-right" ng-click="hideDetail()">close</span>
+
+    <div class="container" ng-repeat="item in items" ng-include="template">
+    </div>
+
+  </div>
+</div>
