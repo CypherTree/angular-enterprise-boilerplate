@@ -1,0 +1,14 @@
+<body ng-app="navHeaderSample">
+	<div  ng-controller="navHeaderSampleCtrl">
+    <script type="text/ng-template" id="categoryTree">
+        {{ category.title }}
+        <ul ng-if="category.categories">
+            <li ng-repeat="category in category.categories" ng-include="'categoryTree'">           
+            </li>
+        </ul>
+    </script>
+    <ul>
+        <li ng-repeat="category in categories" ng-include="'categoryTree'"></li>
+    </ul>  
+	</div>
+</body>
