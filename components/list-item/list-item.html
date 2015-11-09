@@ -1,6 +1,7 @@
 <div class="ab-list-item">
+  <!-- add active class on click on tile element -->
   <div class="tile" ng-if="layout !== 'detail'"
-    ng-class="{ hybrid: layout === 'hybrid' }"
+    ng-class="{ hybrid: layout === 'hybrid'}"
     ng-click="triggerDetail()">
 
     <img class="img-thumbnail" ng-src="{{ image }}">
@@ -11,7 +12,7 @@
   <div class="detail" ng-if="layout !== 'tile'"
     ng-class="{ hybrid: layout === 'hybrid', 'ng-hide': !active }">
 
-    <span class="pull-right" ng-click="hideDetail()">close</span>
+    <span class="pull-right" ng-click="hideDetail()" role="button">close</span>
 
     <div class="container" ng-repeat="item in items" ng-include="template">
     </div>
