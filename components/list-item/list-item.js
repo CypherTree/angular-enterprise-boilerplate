@@ -29,7 +29,7 @@ angular.module('list-item', [])
         scope.triggerDetail = function () {
 
           // if same item has been clicked then close it and return
-          if ($('.ab-list-item > .detail').not('.ng-hide')[0] === element.find('.detail')[0]) {
+          if ($('.ab-list-item > .detail:visible')[0] === element.find('.detail')[0]) {
             scope.hideDetail();
             return;
           }
@@ -37,8 +37,7 @@ angular.module('list-item', [])
           // collapse other items
           $('.ab-list-item')
             .css('padding-bottom', 0)
-            .find('.detail')
-            .addClass('ng-hide');
+            .removeClass('expanded');
 
 
           // show current detail item
@@ -49,6 +48,7 @@ angular.module('list-item', [])
             var addedPadding = element.find('.detail').outerHeight();
             element.find('.ab-list-item')
               .css('padding-bottom', addedPadding)
+              .addClass('expanded');
           }, 0);
         };
 
@@ -56,8 +56,7 @@ angular.module('list-item', [])
           // remove padding
           element.find('.ab-list-item')
             .css('padding-bottom', 0)
-            .find('.detail')
-            .addClass('ng-hide');
+            .removeClass('expanded');
         };
       }
     };
