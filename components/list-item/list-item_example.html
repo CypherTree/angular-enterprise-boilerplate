@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
+    <link rel="stylesheet/less" type="text/css" href="http://localhost:8000/assets/less/app.less">
     <link rel="stylesheet/less" type="text/css" href="list-item.less">
 
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
@@ -52,7 +53,7 @@
         <div class="container" ng-controller="AppCtrl">
 
           <div class="row product-list">
-            <ab-list-item ng-repeat="model in models"
+            <ab-list-item ng-repeat="model in models" 
               ng-model="model"
               sticker="Only 1 left"
               image="http://dummyimage.com/600x400/000/fff"
