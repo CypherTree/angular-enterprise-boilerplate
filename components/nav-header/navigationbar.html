@@ -1,17 +1,17 @@
 
 <body ng-app="navHeaderSample">
-<nav>
-	<div menu="menu" ng-controller="navHeaderSampleCtrl">
+<nav class = "navbar navbar-default" role = "navigation">
+	<div  ng-controller="navHeaderSampleCtrl" class = "navbar-header">
     <script type="text/ng-template" id="categoryTree">
         {{ category.title }}
-        <ul ng-if="category.categories">
+        <ul ng-if="category.categories" class="nav-menu">
             <li class = "active"ng-repeat="category in category.categories" ng-include="'categoryTree'">           
             </li>
         </ul>
     </script>
-    <ul>
-        <li ng-repeat="category in categories" ng-include="'categoryTree'"></li>
-    </ul>  
+   <ul class = "nav navbar-nav"> 
+        <li class = "active" ng-repeat="category in categories" ng-include="'categoryTree'"></li>
+    </ul>
 	</div>
 </nav>
 </body>

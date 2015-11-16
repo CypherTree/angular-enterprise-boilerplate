@@ -5,9 +5,9 @@ angular.module("navHeaderSample", [
 .controller("navHeaderSampleCtrl", function($scope) {
 
   $scope.categories = [{
-    title: 'Home'
+    title: 'Home '
   }, {
-    title: 'Collections',
+    title: 'Collections ',
     categories: [{
       title: 'All Collections'
     }, {
@@ -20,15 +20,14 @@ angular.module("navHeaderSample", [
       title: 'Summer Collection'
     }]
   }, {
-    title: 'About Us',
+    title: 'About Us ',
     categories: [{
       title: 'Feature List'
     }, {
       title: 'Theme Setup'
     }, {
       title: 'Contact Us'
-    },
-    {
+    }, {
       title: 'Our other themes',
       categories: [{
         title: 'Duke'
@@ -38,11 +37,9 @@ angular.module("navHeaderSample", [
         title: 'Salt Yard'
       }]
     }]
-  },{
-   title: 'Theme Features' 
- },
- {
-   title: 'Register/Login' 
- }
- ];
+  }, {
+    title: 'Theme Features '
+  }, {
+    title: 'Register/Login '
+  }];
 });
