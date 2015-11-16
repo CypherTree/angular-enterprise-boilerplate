@@ -27,7 +27,8 @@ angular.module("navHeaderSample", [
       title: 'Theme Setup'
     }, {
       title: 'Contact Us'
-    }, {
+    },
+    {
       title: 'Our other themes',
       categories: [{
         title: 'Duke'
@@ -36,10 +37,12 @@ angular.module("navHeaderSample", [
       }, {
         title: 'Salt Yard'
       }]
-    }, {
-      title: 'Theme features'
-    }, {
-      title: 'Registration/Login'
     }]
-  }];
+  },{
+   title: 'Theme Features' 
+ },
+ {
+   title: 'Register/Login' 
+ }
+ ];
 });

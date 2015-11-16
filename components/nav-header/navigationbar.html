@@ -1,9 +1,11 @@
+
 <body ng-app="navHeaderSample">
-	<div  ng-controller="navHeaderSampleCtrl">
+<nav>
+	<div menu="menu" ng-controller="navHeaderSampleCtrl">
     <script type="text/ng-template" id="categoryTree">
         {{ category.title }}
         <ul ng-if="category.categories">
-            <li ng-repeat="category in category.categories" ng-include="'categoryTree'">           
+            <li class = "active"ng-repeat="category in category.categories" ng-include="'categoryTree'">           
             </li>
         </ul>
     </script>
@@ -11,4 +13,5 @@
         <li ng-repeat="category in categories" ng-include="'categoryTree'"></li>
     </ul>  
 	</div>
+</nav>
 </body>

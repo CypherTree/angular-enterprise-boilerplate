@@ -1,5 +1,4 @@
-
-var app = angular.module("navigation-header", []); // module for navigation
+var app = angular.module('navigation-header', []);
 
 app.directive('navHeader', function() {
   
