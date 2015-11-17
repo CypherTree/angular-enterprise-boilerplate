@@ -1,6 +1,6 @@
 var app = angular.module('navigation-header', []);
 
-app.directive('navHeader', function() {
+app.directive('abNavHeader', function() {
   
   var NavHeaderCtrl = function($scope) {
   };
