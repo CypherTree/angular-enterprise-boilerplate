@@ -1,71 +1,69 @@
+
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Latest compiled and minified CSS -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>theArt Boutique</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet/less" type="text/css" href="nav-header.less">
+
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.js">
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
     <script src="nav-header.js"></script>
+
+    <!-- ANGULAR APP EXAMPLE -->
     <script>
-      angular.module("navHeaderSample", [
-      "navigation-header"
+      angular.module("nav-header-sample", [
+        "nav-header"
       ])
       
       .controller("navHeaderSampleCtrl", function($scope) {
-      
-      $scope.categories = [{
-        title: 'Home '
-      }, {
-        title: 'Collections ',
-        categories: [{
-          title: 'All Collections'
-        }, {
-          title: 'Christmas'
-        }, {
-          title: 'Fabric Heart'
-        }, {
-          title: 'Stars'
-        }, {
-          title: 'Summer Collection'
-        }]
-      }, {
-        title: 'About Us ',
-        categories: [{
-          title: 'Feature List'
-        }, {
-          title: 'Theme Setup'
-        }, {
-          title: 'Contact Us'
-        }, {
-          title: 'Our other themes',
-          categories: [{
-            title: 'Duke'
-          }, {
-            title: 'Beatnik'
-          }, {
-            title: 'Salt Yard'
-          }]
-        }]
-      }, {
-        title: 'Theme Features '
-      }, {
-        title: 'Register/Login '
-      }];
+        
+        $scope.expanded=true;
+          $scope.categories = [
+            'Home', 'Collections', 'About Us', 'Theme Features', 'Register/Login'
+          ].map(function (name) {
+            return {
+              title: name,
+              categories: [
+                { title: name + ' - Cat 1' }, 
+                { title: name + ' - Cat 2' }, 
+                { 
+                  title: name + ' - Cat 3',
+                  categories: [  
+                    { title: name + ' - Cat 3.1' },
+                    { title: name + ' - Cat 3.2' },
+                    { title: name + ' - Cat 3.3' }
+                  ] 
+                } 
+              ]
+            };  
+          });
       });
     </script>
+
   </head>
-  <body ng-app='navHeaderSample'>
-    <div  ng-controller='navHeaderSampleCtrl'>
-      <ab-nav-header>
-      </ab-nav-header>
+  <body ng-app="nav-header-sample">
+    <!-- Header -->
+
+    <div class="header">
+      <h1 class="text-center">Nav header example</h1>
+    </div>
+
+    <div id="wrapper">
+      <div id="page-content-wrapper" ng-view>
+        <div  ng-controller='navHeaderSampleCtrl'>
+          <ab-nav-header ng-model="categories">
+          </ab-nav-header>
+        </div>
+      </div>
     </div>
   </body>
 </html>

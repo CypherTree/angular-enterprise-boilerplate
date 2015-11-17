@@ -1,16 +1,25 @@
-var app = angular.module('navigation-header', []);
+var app = angular.module('nav-header', []);
 
 app.directive('abNavHeader', function() {
-  
-  var NavHeaderCtrl = function($scope) {
-  };
 
   return {
     restrict: 'E',
-    controller: NavHeaderCtrl,
-    templateUrl:'/nav-header/nav-header_example_template.html',
+    templateUrl:'/nav-header/nav-header.html',
     scope: {
       items: '=ngModel'
+    },
+    link: function (scope, element, attrs) {
+      scope.expand = function (item, evt) {
+        if (item.expanded) {
+          item.expanded = false;
+        }
+        else {
+          item.expanded = true;
+        }
+
+        evt.stopPropagation();
+      }
     }
    };
 });
+
