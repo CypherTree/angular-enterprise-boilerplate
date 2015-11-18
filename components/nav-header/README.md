@@ -39,4 +39,5 @@ html
 
 ## Classes available:
 
+ - `ab-nav-header`
 
