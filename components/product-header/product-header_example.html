@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Product-header</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet/less" type="text/css" href="product-header.less">
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
+    <script src="product-header.js"></script>
+
+    <!-- ANGULAR APP EXAMPLE -->
+    <script>
+      angular.module("product-header-sample", [
+      "product-header"
+      ])
+        .controller('productHeaderSampleCtrl', ['', function() {
+        $scope.item="Header";
+        }])
+    </script>
+
+  </head>
+  <body ng-app="product-header-sample">
+    <!-- Header -->
+
+    <div class="header">
+      <!--<h1 class="text-center">Product Header</h1>-->
+      <ab-product-header ng-model="item">
+      </ab-product-header>
+    </div>
+
+  </body>
+</html>
