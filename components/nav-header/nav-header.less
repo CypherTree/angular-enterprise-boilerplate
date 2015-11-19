@@ -4,13 +4,17 @@
     justify-content: center;
 
     .sub-header{
-        display: inline-flex;
+        display: none;
         position: absolute;
-        justify-content: center;menubar-alignmenmenubar-alignment
-        top: 60px;
+        justify-content: center;
         width: 100%;
         left: 0;
+
+        &.expand{
+            display: inline-flex;
+        }
     }
+
 
     .breadcrumbs{
         padding: 20px;
