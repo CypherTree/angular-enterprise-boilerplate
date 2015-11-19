@@ -5,9 +5,9 @@ Display navigation menu
 
 ## Usage
 
-js
+```javascript
 var app = angular.module('nav-header', []);
-
+```
 
 ```html
 <ab-nav-header ng-model="items">
@@ -27,8 +27,23 @@ var app = angular.module('nav-header', []);
 ```
 
 ## API:
-`ng-model`:  (required) to fetch the value of given menu items and sub-menu items
+`ng-model`:  (required) array of menu items, following json example
 
+```javascript
+{
+	title: 'Menuitem',
+	categories: [
+		{
+			title: 'Submenuitem1',
+			href: '/submenuitem1'
+		},
+		{
+			title: 'Submenuitem2',
+			href: '/submenuitem2'
+		}
+	]
+}
+```
 
 ## Classes available:
 
