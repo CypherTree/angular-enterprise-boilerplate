@@ -23,18 +23,25 @@
      angular.module("product-header-sample", [
           "product-header"
         ])
-        .controller('productHeaderSampleCtrl', ['', function($scope) {
-          $scope.items = "The Art Boutique";
-        }])
+      .controller("productHeaderSampleCtrl", function($scope) {
+          $scope.categories = [
+          {
+            header: "The Art Boutique",
+            placeholder: "Search",
+            currencies: [
+            {label: "INR",
+             value: "rupees"}
+            ] 
+          }]
+      });
     </script>
 
   </head>
   <body ng-app="product-header-sample">
     <!-- Header -->
-
     <div class="header" ng-controller='productHeaderSampleCtrl'>
       <!--<h1 class="text-center">Product Header</h1>-->
-      <ab-product-header ng-model="items">
+      <ab-product-header ng-model="categories">
       </ab-product-header>
     </div>
 

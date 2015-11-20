@@ -5,7 +5,7 @@ app.directive('abProductHeader', function() {
     restrict: 'E',
     templateUrl: '/product-header/product-header.html',
     scope: {
-      name: '=ngModel'
+      items: '=ngModel'
     },
     link: function(scope, element, attrs) {
 
