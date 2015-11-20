@@ -1,4 +1,4 @@
-## nav-header
+## product-header
 
 Display Product Header
 
