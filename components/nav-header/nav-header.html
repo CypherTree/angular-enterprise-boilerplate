@@ -1,0 +1,19 @@
+
+<div class="ab-nav-header">
+    <div class="breadcrumbs"
+        ng-repeat="item in items"
+        ng-include="'nav-header-item-template'" 
+        ng-click="expand(item, $event)">
+    </div>
+    
+    <script type="text/ng-template" id="nav-header-item-template">
+        {{ item.title }}
+        <div ng-if="item.categories.length" ng-show="item.expanded" class="sub-header">
+            <div class="breadcrumbs"
+                ng-repeat="item in item.categories" 
+                ng-include="'nav-header-item-template'" 
+                ng-click="expand(item, $event)">
+            </div>
+        </div>
+    </script>
+</div>

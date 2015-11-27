@@ -1,0 +1,34 @@
+.ab-nav-header {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+
+    .sub-header{
+        display: inline-flex;
+        position: absolute;
+        justify-content: center;menubar-alignmenmenubar-alignment
+        top: 60px;
+        width: 100%;
+        left: 0;
+    }
+
+    .breadcrumbs{
+        padding: 20px;
+    }
+}
+
+@media (min-width: 100px) and (max-width: 768px) {
+    .ab-nav-header{
+        display: block;
+        width: 100%;
+        text-align: left;
+
+        .sub-header{
+            display: block;
+            position: inherit;
+            width: 100%;
+            text-align: left;
+            text-indent: 50px;
+        }
+    }
+}

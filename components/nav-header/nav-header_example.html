@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>theArt Boutique</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+    <link rel="stylesheet/less" type="text/css" href="nav-header.less">
+
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
+    <script src="nav-header.js"></script>
+
+    <!-- ANGULAR APP EXAMPLE -->
+    <script>
+      angular.module("nav-header-sample", [
+        "nav-header"
+      ])
+      
+      .controller("navHeaderSampleCtrl", function($scope) {
+        
+        $scope.expanded=true;
+          $scope.categories = [
+            'Home', 'Collections', 'About Us', 'Theme Features', 'Register/Login'
+          ].map(function (name) {
+            return {
+              title: name,
+              categories: [
+                { title: name + ' - Cat 1' }, 
+                { title: name + ' - Cat 2' }, 
+                { 
+                  title: name + ' - Cat 3',
+                  categories: [  
+                    { title: name + ' - Cat 3.1' },
+                    { title: name + ' - Cat 3.2' },
+                    { title: name + ' - Cat 3.3' }
+                  ] 
+                } 
+              ]
+            };  
+          });
+      });
+    </script>
+
+  </head>
+  <body ng-app="nav-header-sample">
+    <!-- Header -->
+
+    <div class="header">
+      <h1 class="text-center">Nav header example</h1>
+    </div>
+
+    <div id="wrapper">
+      <div id="page-content-wrapper" ng-view>
+        <div  ng-controller='navHeaderSampleCtrl'>
+          <ab-nav-header ng-model="categories">
+          </ab-nav-header>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
