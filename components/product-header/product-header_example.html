@@ -19,26 +19,46 @@
     <script src="product-header.js"></script>
 
     <!-- ANGULAR APP EXAMPLE -->
-    <script>
+    <script type="text/javascript">
      angular.module("product-header-sample", [
           "product-header"
         ])
       .controller("productHeaderSampleCtrl", function($scope) {
-          $scope.categories = [
-          {
-            header: "The Art Boutique",
-            placeholder: "Search",
-            currencies: [
-            {label: "INR",
-             value: "rupees"}
+          $scope.model = {
+            header: 'theArt Boutique',
+            social: [
+              {
+                icon: 'fa-facebook',
+                url: 'https://www.facebook.com/cyphertree'
+              },
+              {
+                icon: 'fa-linkedin',
+                url: 'https://www.linkedin.com/cyphertree'
+              },
+              {
+                icon: 'fa-twitter',
+                url: 'https://www.twitter.com/cyphertree'
+              },
+              {
+                icon: 'fa-pinterest',
+                url: 'https://www.pinterest.com/cyphertree'
+              }
             ],
-            socialLinks: [ 
-            {"facebook" : {
-            url: "https://www.facebook.com/",
-            icon: "facebook"
-            } }
-            ]
-          }]
+
+            currencies: [
+              { label: 'GBP', value: 'gbp' },
+              { label: 'USD', value: 'usd' },
+              { label: 'INR', value: 'inr', selected: true }
+            ],
+
+            cart: {
+              items: [
+                { name: 'Item1', value: '1000', currency: 'inr' },
+                { name: 'Item1', value: '1000', currency: 'inr' },
+                { name: 'Item1', value: '1000', currency: 'inr' }
+              ]
+            }
+          }
       });
     </script>
 
@@ -47,7 +67,11 @@
     <!-- Header -->
     <div class="header" ng-controller='productHeaderSampleCtrl'>
       <!--<h1 class="text-center">Product Header</h1>-->
-      <ab-product-header ng-model="categories">
+      <ab-product-header
+        social="model.social"
+        currencies="model.currencies"
+        cart="model.cart"
+        header="{{ model.header }}">
       </ab-product-header>
     </div>
 

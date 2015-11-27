@@ -5,7 +5,7 @@ body{
 }
 a{
 	text-decoration: none;
-	color:inherit; 
+	color:inherit;
 }
 li a{
 	color: #767676;
@@ -27,15 +27,26 @@ h1{
 /***********************styles*********************/
 .ab-header{
 	border-bottom: 1px solid #767676;
+    .search-box {
+        display: inline-block;
+        left: 30px;
+        position: absolute;
+    }
+
+    .social-link {
+        padding: 25px 5px;
+    }
+
+    select {
+        max-width: 60px;
+    }
 }
-.ab-header-search-box{
-	display: inline-block;
-	left: 30px;
-	position: absolute;
-}
+
 @media (max-width: 760px){
-	.ab-header-search-box{
-		display: none;
+	.ab-header {
+        .search-box {
+            display: none;
+        }
 	}
 }
 .search-form{
@@ -81,9 +92,6 @@ h1{
     text-indent: 10px;
     position: relative;
     left: 25px;
-}
-.ab-header-social-links{
-	padding: 25px 5px;
 }
 
 .cart-styling{
