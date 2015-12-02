@@ -1,17 +1,11 @@
 <div class="row ab-header">
   <div class="col-md-4 col-xs-12">
-    <center>
-      <div class = "form-group search-box">
-        <form class="search-form">
-          <i class="fa fa-search ab-header-content"></i>
-          <input type = "text" name="q" placeholder = {{item.placeholder}}>
-          <input type="submit" value="->" style="display:block">
-        </form>
-        <div class="results-block" style="display:block"></div>
+    <center class="search-box">
+      <input type="text" placeholder="Search Items">
     </center>
     </div>
     <div class="col-md-4 col-xs-12">
-      <h1>
+      <h1 class="product-title">
         <center>{{ header }}</center>
       </h1>
     </div>
@@ -24,7 +18,7 @@
     </div>
     <div class="col-md-2 col-xs-12">
       <center>
-        <span class="cart-styling">
+        <span class="ab-cart">
           <b>CART({{ cart.items.length }})</b>
           <select>
             <option
