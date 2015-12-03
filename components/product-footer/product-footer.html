@@ -1,11 +1,11 @@
 <div class="ab-product-footer">
-	<div class="row">
+	<div class="row row-position">
 	 	<div class="col-md-4 col-xs-12">
 	 		<p class="footer-headings">CONNECT WITH US</p>
 	 		<hr>
 	 		<span>
 	 			<a ng-href="{{ item.url }}" ng-repeat="item in social">
-	 				<i class="fa fa-{{ item.icon }} fa-2x social-link"></i>
+	 				<i class="fa {{ item.icon }} fa-2x social-link link-alignment"></i>
  				</a>
 	 		</span>
 	  	</div>
@@ -14,15 +14,15 @@
 		 		<hr>
 	  	 	<div class="col-md-6 col-xs-6">
 	  	 		<ul class="ab-ulist">
-		  	 		<li>About us</li>
-		  	 		<li>Carees @ {{ productName }}</li>
-		  	 		<li>Blog</li>
+		  	 		<a href="#"><li>About us</li></a>
+		  	 		<a href="#"><li>Carees @ {{ productName }}</li></a>
+		  	 		<a href="#"><li>Blog</li></a>
 	  	 		</ul>
 	  	 	</div>
 	  	 	<div class="col-md-6 col-xs-6">
 	  	 		<ul class="ab-ulist">
-	  	 			<li>Press Coverage</li>
-	  	 			<li>Team</li>
+	  	 			<a href="#"><li>Press Coverage</li></a>
+	  	 			<a href="#"><li>Team</li></a>
 	  	 		</ul>
 	  	 	</div>
 		 	</div>
@@ -31,17 +31,17 @@
 		 		<hr>
 	  	 	<div class="col-md-6 col-xs-6">
 	  	 		<ul class="ab-ulist">
-	  	 			<li>Privacy Policy</li>
-	  	 			<li>Payment & Security</li>
-	  	 			<li>Shipping & Delivery</li>
-	  	 			<li>Terms of Use</li>
+	  	 			<a href="#"><li>Privacy Policy</li></a>
+	  	 			<a href="#"><li>Payment & Security</li></a>
+	  	 			<a href="#"><li>Shipping & Delivery</li></a>
+	  	 			<a href="#"><li>Terms of Use</li></a>
 	  	 		</ul>
 	  	 	</div>
 	  	 	<div class="col-md-6 col-xs-6">
 	  	 		<ul class="ab-ulist">
-	  	 			<li>Terms of Offer for Sale</li>
-	  	 			<li>No Worries</li>
-	  	 			<li>EMI on Credit Cards</li>
+	  	 			<a href="#"><li>Terms of Offer for Sale</li></a>
+	  	 			<a href="#"><li>No Worries</li></a>
+	  	 			<a href="#"><li>EMI on Credit Cards</li></a>
 	  	 		</ul>
 	  	 	</div>
 		 	</div>
@@ -49,7 +49,7 @@
 	<div class="row">
 		<div class="col-md-12 col-xs-12">
 			<div class="footer-end">
-			delivering in: <span ng-repeat="city in cities"> {{ city }} | </span>
+			Delivering in: <span ng-repeat="city in cities"> {{ city }} | </span>
 			</div>
 		</div>
 	</div>

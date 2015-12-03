@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet/less" type="text/css" href="product-header.less">
+    <link rel="stylesheet/less" type="text/css" href="product-footer.less">
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.js">
     </script>
@@ -27,6 +27,14 @@
           $scope.model = {
             productName: 'theArt Boutique',
             social: [
+              {
+                icon: 'fa-phone',
+                url: '#'
+              },
+              {
+                icon: 'fa-envelope',
+                url: 'https://www.gmail.com'
+              },
               {
                 icon: 'fa-facebook',
                 url: 'https://www.facebook.com/cyphertree'
@@ -52,9 +60,8 @@
 
   </head>
   <body ng-app="product-footer-sample">
-    <!-- Header -->
-    <div class="header" ng-controller='productHeaderSampleCtrl'>
-      <!--<h1 class="text-center">Product Header</h1>-->
+    <!-- Footer -->
+    <div class="header" ng-controller='productFooterSampleCtrl'>
       <ab-product-footer
         social="model.social"
         cities="model.cities"
