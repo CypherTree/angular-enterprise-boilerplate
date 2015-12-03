@@ -1,0 +1,56 @@
+<div class="ab-product-footer">
+	<div class="row">
+	 	<div class="col-md-4 col-xs-12">
+	 		<p class="footer-headings">CONNECT WITH US</p>
+	 		<hr>
+	 		<span>
+	 			<a ng-href="{{ item.url }}" ng-repeat="item in social">
+	 				<i class="fa fa-{{ item.icon }} fa-2x social-link"></i>
+ 				</a>
+	 		</span>
+	  	</div>
+		 	<div class="col-md-4 col-xs-12">
+		 		<P class="footer-headings">{{ productName }}</P>
+		 		<hr>
+	  	 	<div class="col-md-6 col-xs-6">
+	  	 		<ul class="ab-ulist">
+		  	 		<li>About us</li>
+		  	 		<li>Carees @ {{ productName }}</li>
+		  	 		<li>Blog</li>
+	  	 		</ul>
+	  	 	</div>
+	  	 	<div class="col-md-6 col-xs-6">
+	  	 		<ul class="ab-ulist">
+	  	 			<li>Press Coverage</li>
+	  	 			<li>Team</li>
+	  	 		</ul>
+	  	 	</div>
+		 	</div>
+		 	<div class="col-md-4 col-xs-12">
+		 		<P class="footer-headings">NEED HELP ?</P>
+		 		<hr>
+	  	 	<div class="col-md-6 col-xs-6">
+	  	 		<ul class="ab-ulist">
+	  	 			<li>Privacy Policy</li>
+	  	 			<li>Payment & Security</li>
+	  	 			<li>Shipping & Delivery</li>
+	  	 			<li>Terms of Use</li>
+	  	 		</ul>
+	  	 	</div>
+	  	 	<div class="col-md-6 col-xs-6">
+	  	 		<ul class="ab-ulist">
+	  	 			<li>Terms of Offer for Sale</li>
+	  	 			<li>No Worries</li>
+	  	 			<li>EMI on Credit Cards</li>
+	  	 		</ul>
+	  	 	</div>
+		 	</div>
+	</div> 
+	<div class="row">
+		<div class="col-md-12 col-xs-12">
+			<div class="footer-end">
+			delivering in: <span ng-repeat="city in cities"> {{ city }} | </span>
+			</div>
+		</div>
+	</div>
+</div>
