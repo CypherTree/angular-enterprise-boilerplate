@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>theArt Boutique</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet/less" type="text/css" href="product-footer.less">
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
+    <script src="product-footer.js"></script>
+
+    <!-- ANGULAR APP EXAMPLE -->
+    <script type="text/javascript">
+     angular.module("product-footer-sample", [
+          "product-footer"
+        ])
+      .controller("productFooterSampleCtrl", function($scope) {
+          $scope.model = {
+            productName: 'theArt Boutique',
+            social: [
+              {
+                icon: 'fa-phone',
+                url: '#'
+              },
+              {
+                icon: 'fa-envelope',
+                url: 'https://www.gmail.com'
+              },
+              {
+                icon: 'fa-facebook',
+                url: 'https://www.facebook.com/cyphertree'
+              },
+              {
+                icon: 'fa-linkedin',
+                url: 'https://www.linkedin.com/cyphertree'
+              },
+              {
+                icon: 'fa-twitter',
+                url: 'https://www.twitter.com/cyphertree'
+              },
+              {
+                icon: 'fa-pinterest',
+                url: 'https://www.pinterest.com/cyphertree'
+              }
+            ],
+
+            cities: [ 'Pune', 'Mumbai' ]
+          }
+      });
+    </script>
+
+  </head>
+  <body ng-app="product-footer-sample">
+    <!-- Footer -->
+    <div class="header" ng-controller='productFooterSampleCtrl'>
+      <ab-product-footer
+        social="model.social"
+        cities="model.cities"
+        product-name="{{ model.productName }}">
+      </ab-product-footer>
+    </div>
+
+  </body>
+</html>
