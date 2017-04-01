@@ -23,11 +23,11 @@ Issues only! |
 Please keep in mind that the issue tracker is for *issues*. Please do *not* post an issue if you need help or support. Instead, see one of the above-mentioned forums or [IRC](irc://irc.freenode.net/#angularjs). |
 
 ####Purple Labels
-A purple label means that **you** need to take some further action.  
- - ![Not Actionable - Need Info](http://angular-ui.github.io/ui-router/images/notactionable.png): Your issue is not specific enough, or there is no clear action that we can take. Please clarify and refine your issue.
- - ![Plunkr Please](http://angular-ui.github.io/ui-router/images/plunkrplease.png): Please [create a plunkr](http://bit.ly/UIR-Plunk)
- - ![StackOverflow](http://angular-ui.github.io/ui-router/images/stackoverflow.png): We suspect your issue is really a help request, or could be answered by the community.  Please ask your question on [StackOverflow](http://stackoverflow.com/questions/ask?tags=angularjs,angular-ui-router).  If you determine that is an actual issue, please explain why.
- 
+A purple label means that **you** need to take some further action.
+ - ![Not Actionable - Need Info](ngdoc_assets/incomplete.png): Your issue is not specific enough, or there is no clear action that we can take. Please clarify and refine your issue.
+ - ![Plunkr Please](ngdoc_assets/example.png): Please [create a plunkr](http://bit.ly/UIR-Plunk)
+ - ![StackOverflow](ngdoc_assets/so.png): We suspect your issue is really a help request, or could be answered by the community.  Please ask your question on [StackOverflow](http://stackoverflow.com/questions/ask?tags=angularjs,angular-ui-router).  If you determine that is an actual issue, please explain why.
+
 If your issue gets labeled with purple label, no further action will be taken until you respond to the label appropriately.
 
 # Contribute
@@ -49,17 +49,63 @@ If your issue gets labeled with purple label, no further action will be taken un
 
 # Developing
 
-UI-Router uses <code>grunt >= 0.4.x</code>. Make sure to upgrade your environment and read the
-[Migration Guide](http://gruntjs.com/upgrading-from-0.3-to-0.4).
+UI-Router uses <code>npm</code> and <code>webpack</code>.
 
-Dependencies for building from source and running tests:
+## Fetch the source code
 
-* [grunt-cli](https://github.com/gruntjs/grunt-cli) - run: `$ npm install -g grunt-cli`
-* Then, install the development dependencies by running `$ npm install` from the project directory
+The code for Angular UI-Router is split into two source repositories:
 
-There are a number of targets in the gruntfile that are used to generating different builds:
+* [UI-Router Core](https://github.com/ui-router/core) (`ui-router-core` on npm)
+* [UI-Router for Angular 1](https://github.com/angular-ui/ui-router) (`angular-ui-router` on npm)
 
-* `grunt`: Perform a normal build, runs jshint and karma tests
-* `grunt build`: Perform a normal build
-* `grunt dist`: Perform a clean build and generate documentation
-* `grunt dev`: Run dev server (sample app) and watch for changes, builds and runs karma tests on changes.
+Clone both repositories into directories next to each other.
+
+```
+git clone https://github.com/angular-ui/ui-router.git angular-ui-router
+git clone https://github.com/ui-router/core.git ui-router-core
+```
+
+## Install dependencies
+
+Use `npm` to install the development dependencies for each repositor.
+
+```
+cd ui-router-core
+npm install
+cd ../angular-ui-router
+npm install
+cd ..
+```
+
+## Link the directories
+
+This step is necessary if you need to modify any code in `ui-router-core`.
+Using `npm`, link `ui-router-core` into `angular-ui-router` 
+
+```
+cd ui-router-core
+npm link
+cd ../angular-ui-router
+npm link ui-router-core
+```
+
+After executing these steps, `angular-ui-router` will be built using your local copy of `ui-router-core`.
+
+## Develop
+
+These scripts may be run in `angular-ui-router`:
+
+* `npm run build`: Compiles TypeScript source
+* `npm run package`: Compiles TypeScript source and creates webpack bundles.
+* `npm test`: Runs the `angular-ui-router` test suite (against Angular 1.2 through 1.5).
+* `npm run watch`: Continuously compiles the source and runs the `angular-ui-router` tests (when source or tests change).
+
+Scripts of the same name (in `ui-router-core`) can be used.
+
+* `npm run build`: Compiles `ui-router-core` TypeScript source
+* `npm test`: Runs the `ui-router-core` test suite
+* `npm run watch`: Continuously compiles the source and runs the `ui-router-core` test suite (when core source or tests change).
+
+If you've followed the [linking instructions](#link-the-directories), it's useful to run both
+`npm run watch` tasks (each task from `ui-router-core` *and* `angular-ui-router`).
+This ensures that changes to either `ui-router-core` and `angular-ui-router` compile successfully and are run against the test suite.

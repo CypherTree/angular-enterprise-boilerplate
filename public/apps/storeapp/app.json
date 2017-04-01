@@ -12,8 +12,6 @@
     "moment/moment.js"
   ],
   "components": [
-    "translate/translate.js",
-    "interceptors/interceptors.js"
   ],
   "files": [
     "app.js"
