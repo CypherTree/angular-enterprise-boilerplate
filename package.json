@@ -1,16 +1,13 @@
 {
-  "name": "art-boutique-ui",
+  "name": "angular-enterprise-boilerplate",
   "version": "0.0.1",
-  "description": "Art Boutique UI",
+  "description": "Angular Enterprise Boilerplate",
   "scripts": {
     "start": "./node_modules/.bin/nodemon server.js",
     "test": "./node_modules/.bin/gulp test"
   },
   "engines": {
     "node": ">=0.10"
-  },
-  "bin": {
-    "zap": "./bin/zap"
   },
   "dependencies": {
     "express": "~4.15.2"
@@ -21,8 +18,7 @@
   },
   "author": "Anit Rai <anit.rai@cyphertree.com>",
   "contributors": [
-    "Radhika Subramaniyam <radhika@cyphertree.com>",
-    "Rama Paudyal <rama.paudyal@cyphertree.com>"
+    "Madhavi Solanki <madhavi.solanki@cyphertree.com>"
   ],
   "license": "Cyphertree",
   "readmeFilename": "README.md",

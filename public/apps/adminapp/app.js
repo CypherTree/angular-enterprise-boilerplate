@@ -1,14 +1,11 @@
 'use strict';
 
 /**
- * storeapp
+ * adminapp
  */
 
-angular.module('storeapp', [
-  'ui.router',
-  'ngMaterial',
-
-  'navbar'
+angular.module('adminapp', [
+  'ui.router'
 ])
 
 /**
@@ -35,7 +32,7 @@ angular.module('storeapp', [
 
     $stateProvider.state('home', {
       url: '/',
-      templateUrl: '/apps/storeapp/home/home.html'
+      templateUrl: '/apps/adminapp/home/home.html'
     });
   }
 ])
@@ -56,5 +53,5 @@ angular.module('storeapp', [
  */
 
 angular.element(document).ready(function() {
-  angular.bootstrap(document, ['storeapp'], { strictDi: true });
+  angular.bootstrap(document, ['adminapp'], { strictDi: true });
 });

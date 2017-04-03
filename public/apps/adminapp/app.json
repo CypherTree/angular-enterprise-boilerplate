@@ -1,22 +1,19 @@
 {
-  "name": "storeapp",
+  "name": "adminapp",
   "version": "0.0.1",
   "dependencies": [
     "jquery/dist/jquery.js",
     "angular/angular.js",
     "angular-resource/angular-resource.js",
     "angular-touch/angular-touch.js",
-    "angular-aria/angular-aria.js",
     "angular-animate/angular-animate.js",
     "angular-translate/angular-translate.js",
     "angular-ui-router/release/angular-ui-router.js",
-    "angular-material/angular-material.js",
     "moment/moment.js"
   ],
   "components": [
   ],
   "files": [
-    "app.js",
-    "navbar/navbar.js"
+    "app.js"
   ]
 }

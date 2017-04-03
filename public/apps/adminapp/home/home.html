@@ -1,0 +1,12 @@
+
+<ul class="landing-apps" cg-busy="promise">
+  <li ng-repeat="app in apps">
+    <a href="/{{ app._id }}" title="{{ app.title }}">
+      <i class="fa fa-{{ app._id }}"></i>
+      <span>{{ app.title }}</span>
+    </a>
+  </li>
+</ul>
+
+<div class="text-center clearfix">
+</div>

@@ -1,3 +1,6 @@
+'use strict';
+
+
 var app = angular.module('product-header', []);
 
 app.directive('abProductHeader', function() {

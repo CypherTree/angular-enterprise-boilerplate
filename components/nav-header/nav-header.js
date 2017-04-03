@@ -1,3 +1,6 @@
+'use strict';
+
+
 var app = angular.module('nav-header', []);
 
 app.directive('abNavHeader', function() {
@@ -8,7 +11,7 @@ app.directive('abNavHeader', function() {
     scope: {
       items: '=ngModel'
     },
-    link: function (scope, element, attrs) {
+    link: function (scope) {
       scope.expand = function (item, evt) {
         if (item.expanded) {
           item.expanded = false;
@@ -18,7 +21,7 @@ app.directive('abNavHeader', function() {
         }
 
         evt.stopPropagation();
-      }
+      };
     }
    };
 });
