@@ -1,0 +1,7 @@
+/**
+ * adminapp
+ * 
+ * @version 0.0.1
+ */
+
+@font-face{font-family:'Open Sans';src:url(../../assets/fonts/opensans-light.eot);src:url(../../assets/fonts/opensans-light.eot?#iefix) format('embedded-opentype'),url(../../assets/fonts/opensans-light.woff) format('woff'),url(../../assets/fonts/opensans-light.ttf) format('truetype'),url(../../assets/fonts/opensans-light.svg#OpenSansLight) format('svg');font-style:normal;font-weight:lighter}@font-face{font-family:'Open Sans';src:url(../../assets/fonts/opensans-regular.eot);src:url(../../assets/fonts/opensans-regular.eot?#iefix) format('embedded-opentype'),url(../../assets/fonts/opensans-regular.woff) format('woff'),url(../../assets/fonts/opensans-regular.ttf) format('truetype'),url(../../assets/fonts/opensans-regular.svg#OpenSansRegular) format('svg');font-style:normal;font-weight:400}@font-face{font-family:'Open Sans';src:url(../../assets/fonts/opensans-bold.eot);src:url(../../assets/fonts/opensans-bold.eot?#iefix) format('embedded-opentype'),url(../../assets/fonts/opensans-bold.woff) format('woff'),url(../../assets/fonts/opensans-bold.ttf) format('truetype'),url(../../assets/fonts/opensans-bold.svg#OpenSansBold) format('svg');font-style:normal;font-weight:700}.full-height{height:100%}.remove-padding-all{padding:0}body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}

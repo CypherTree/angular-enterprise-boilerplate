@@ -7,25 +7,26 @@
 var templateCache = require('gulp-angular-templatecache');
 var sourcemaps = require('gulp-sourcemaps');
 var minifyCSS = require('gulp-minify-css');
-var gulpIgnore = require('gulp-ignore');
 var aws = require('gulp-awspublish');
+var parallelize = require("concurrent-transform");
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var header = require('gulp-header');
 var footer = require('gulp-footer');
+var replace = require('gulp-replace');
 var karma = require('karma').server;
 var less = require('less-stream');
-var bump = require('gulp-bump');
 var gulpif = require('gulp-if');
 var gulp = require('gulp');
 var fs = require('fs');
+var closureCompiler = require('gulp-closure-compiler');
+
 
 // conventions
 var fonts = ['.eot', '.svg', '.ttf', '.woff', '.otf'];
 var images = ['.png', '.jpeg', '.jpg', '.gif'];
-var envs = ['testing', 'staging', 'production'];
-var versions = ['patch', 'minor', 'major'];
+var envs = ['dev', 'staging', 'production'];
 var apps = fs.readdirSync(__dirname + '/public/apps');
 var locales = fs.readdirSync(__dirname + '/public/locales');
 
@@ -38,7 +39,6 @@ var banner = [
   ' * <%= pkg.name %>',
   ' * <%= pkg.description %>',
   ' * @version <%= pkg.version %>',
-  ' * Copyright(c) Safety Changer',
   ' */',
   '', ''
 ].join('\n');
@@ -61,9 +61,9 @@ buildLocales();
 
 // create all release tasks
 apps.forEach(function (app) {
-  versions.forEach(function (version) {
-    gulp.task('release:' + app + ':' + version, function () {
-      return release.call(this, app, version);
+  envs.forEach(function (env) {
+    gulp.task('release:' + app + ':' + env, function () {
+      return release.call(this, app, env);
     });
   });
 });
@@ -72,7 +72,6 @@ apps.forEach(function (app) {
 var pkg;          // app.json file of the app
 var dist;         // dist directory
 var path;         // path to the app
-var version;      // bumped version
 var files = [];   // js files required by the app
 
 /**
@@ -81,7 +80,6 @@ var files = [];   // js files required by the app
 
 gulp.task('bump', function () {
   return gulp.src(path + '/app.json')
-    .pipe(bump({ type: version }))
     .pipe(gulp.dest(path + '/'));
 });
 
@@ -96,9 +94,9 @@ gulp.task('concat', ['bump', 'templates'], function () {
   var appLocale = JSON.stringify(allLocales[pkg.name]) + ';\n';
   return gulp.src(files)
     .pipe(sourcemaps.init())
-      .pipe(concat('app.js'))
-      .pipe(header('window.locales = ' + appLocale))
-      .pipe(header(banner, { pkg: pkg }))
+    .pipe(concat('app.js', {newLine: ';'}))
+    .pipe(header('window.locales = ' + appLocale))
+    .pipe(header(banner, {pkg: pkg}))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(dist + '/'));
 });
@@ -106,14 +104,21 @@ gulp.task('concat', ['bump', 'templates'], function () {
 /**
  * Minify js
  *
- * TODO (madhums): add sourcemaps for minified files
  */
 
 gulp.task('minify', ['concat'], function () {
   return gulp.src(dist + '/app.js')
-    .pipe(uglify({ mangle: false }))
-    .pipe(rename('app.min.js'))
-    .pipe(header(banner, { pkg: pkg }))
+    .pipe(uglify({mangle: false}))
+    .pipe(closureCompiler({
+      compilerPath: 'public/bower_components/closure-compiler/compiler.jar',
+      fileName: 'app.' + pkg.version + '.min.js',
+      continueWithWarnings: true,
+      compilerFlags: {
+        warning_level: 'QUIET',
+      }
+    }))
+    .pipe(gulp.dest(dist))
+    .pipe(header(banner, {pkg: pkg}))
     .pipe(footer('//# sourceMappingURL=app.js.map'))
     .pipe(gulp.dest(dist + '/'));
 });
@@ -129,20 +134,20 @@ gulp.task('less', ['bump', 'concat'], function () {
   // modify vars for releases and production
   var options = {
     modifyVariables: {
-      'fa-font-path': '"fonts"',
+      'fa-font-path'  : '"fonts"',
       'icon-font-path': '"fonts/"',
-      'sc-font-path': '"fonts"',
-      'img-path': '""',
-      'sc-root': ''
+      'cs-font-path'  : '"fonts"',
+      'img-path'      : '""',
+      'component-root': ''
     },
-    paths: ['./components']
+    paths          : ['./components']
   };
 
   return gulp.src(path + '/app.less')
     .pipe(sourcemaps.init())
-      .pipe(concat('app.css'))
-      .pipe(less(options))
-      .pipe(header(banner, { pkg: pkg }))
+    .pipe(concat('app.css'))
+    .pipe(less(options))
+    .pipe(header(banner, {pkg: pkg}))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(dist));
 });
@@ -150,14 +155,13 @@ gulp.task('less', ['bump', 'concat'], function () {
 /**
  * Minify css
  *
- * TODO (madhums): add sourcemaps for minified files
  */
 
 gulp.task('minify-css', ['less'], function () {
   return gulp.src(dist + '/app.css')
     .pipe(minifyCSS())
-    .pipe(rename('app.min.css'))
-    .pipe(header(banner, { pkg: pkg }))
+    .pipe(rename('app.' + pkg.version + '.min.css'))
+    .pipe(header(banner, {pkg: pkg}))
     .pipe(gulp.dest(dist));
 });
 
@@ -173,7 +177,7 @@ gulp.task('templates', ['bump'], function () {
       '!' + path + '/development.html',
       '!' + path + '/production.html'
     ])
-    .pipe(templateCache({ module: pkg.name, root: '/apps/' + pkg.name }))
+    .pipe(templateCache({module: pkg.name, root: '/apps/' + pkg.name}))
     .pipe(gulp.dest(dist));
 });
 
@@ -182,26 +186,28 @@ gulp.task('templates', ['bump'], function () {
  */
 
 gulp.task('component-templates', ['templates'], function () {
-  files.push(dist + '/component-tpls/templates.js');
+  files.push(dist + '/component-tpls-' + pkg.version +'/templates.js');
 
   var _tpls = [];
 
   pkg.components.forEach(function (com) {
-    _tpls.push('./components/' + com.split('/')[0] + '/*.html');
+    _tpls.push('./components/' + com.split('/')[0] + '/**/*.html');
   });
 
   _tpls.push('!./components/**/*_test.html');
+  _tpls.push('!./components/**/*_example*.html');
+  
 
   // ignore coverage folder
   return gulp.src(_tpls)
     .pipe(templateCache({
       module: pkg.name,
-      base: function (file) {
-        var arr = file.path.split('/');
-        return '/' + arr[arr.length - 2] + '/' + arr[arr.length - 1];
+      base  : function (file) {
+        var arr = file.path.split('/components/');
+        return '/' + arr[1]
       }
     }))
-    .pipe(gulp.dest(dist + '/component-tpls'));
+    .pipe(gulp.dest(dist + '/component-tpls-' + pkg.version));
 });
 
 /**
@@ -219,7 +225,8 @@ gulp.task('test:components', function (done) {
  */
 
 gulp.task('copy:fonts', function () {
-  return gulp.src([ __dirname + '/public/assets/fonts/**' ])
+  return gulp.src([__dirname + '/public/assets/fonts/**'])
+    .pipe(gulp.dest(dist + '/assets/fonts'))
     .pipe(gulp.dest(dist + '/fonts'));
 });
 
@@ -228,19 +235,22 @@ gulp.task('copy:fonts', function () {
  */
 
 gulp.task('copy:img', function () {
-  return gulp.src([ __dirname + '/public/assets/img/**' ])
+  return gulp.src([__dirname + '/public/assets/img/**'])
+    .pipe(gulp.dest(dist + '/assets/img'))
     .pipe(gulp.dest(dist + '/img'));
 });
 
+
 /**
- * copy html
+ * copy favicons
  */
 
-gulp.task('copy:html', function () {
-  return gulp.src([ __dirname + '/public/apps/'+ pkg.name +'/production.html'])
-    .pipe(rename('index.html'))
-    .pipe(gulp.dest(dist));
+gulp.task('copy:favicons', function () {
+  return gulp.src([__dirname + '/public/assets/favicons/**'])
+    .pipe(gulp.dest(dist + '/assets/favicons'))
+    .pipe(gulp.dest(dist + '/favicons'));
 });
+
 
 /**
  * Default
@@ -255,9 +265,9 @@ gulp.task('default', [
  * test an app
  */
 
-function test (app, done) {
+function test(app, done) {
   karma.start({
-    configFile: __dirname + '/public/apps/'+ app +'/karma.conf.js'
+    configFile: __dirname + '/public/apps/' + app + '/karma.conf.js'
   }, done);
 }
 
@@ -265,7 +275,7 @@ function test (app, done) {
  * test all apps
  */
 
-function tests () {
+function tests() {
   var tasks = ['test:components'];
   apps.forEach(function (app) {
     tasks.push('test:' + app);
@@ -286,56 +296,56 @@ function tests () {
  *
  * Examples:
  *
- * release:app1:minor   => release app1 with minor
- * release:minor        => release all with minor bump
- * release:app1         => release app1 app with patch
+ * release:app1:env   => release app1 with env settings
+ * release:env        => release all with env settings
+ * release:app1       => release app1 app with dev env
  *
- * test:app1            => test app1 app
+ * test:app1          => test app1 app
  */
 
-function prepare () {
+function prepare() {
   var releases = [];
 
-  // release:minor
-  versions.forEach(function (version) {
+  // release:env
+  envs.forEach(function (env) {
     var _tasks = [];
-    // all apps with `version` bump
+    // all apps with `env` settings
     apps.forEach(function (app) {
-      _tasks.push('release:' + app + ':' + version);
+      _tasks.push('release:' + app + ':' + env);
     });
     releases.push({
-      task: 'release:' + version,
-      arr: _tasks
+      task: 'release:' + env,
+      arr : _tasks
     });
   });
 
   // release:app1
   apps.forEach(function (app) {
-    // `app` with patch bump
+    // `app` with dev settings
     releases.push({
       task: 'release:' + app,
-      arr: ['release:' + app + ':patch']
+      arr : ['release:' + app + ':dev']
     });
   });
 
-  // release:app1:minor
+  // release:app1:env
   apps.forEach(function (app) {
-    versions.forEach(function (version) {
+    envs.forEach(function (env) {
       releases.push({
-        task: 'release:' + app + ':' + version,
-        arr: ['release:' + app + ':' + version]
+        task: 'release:' + app + ':' + env,
+        arr : ['release:' + app + ':' + env]
       });
     });
   });
 
   var _tasks = [];
   apps.forEach(function (app) {
-    _tasks.push('release:' + app + ':patch');
+    _tasks.push('release:' + app + ':dev');
   });
 
   releases.push({
     task: 'release',
-    arr: _tasks
+    arr : _tasks
   });
 
   return releases;
@@ -345,8 +355,8 @@ function prepare () {
  * releases
  */
 
-function releases (tasks) {
-  // for gulp release:app|version
+function releases(tasks) {
+  // for gulp release:app|env
   tasks.forEach(function (o) {
     gulp.task(o.task, o.arr);
   });
@@ -356,11 +366,11 @@ function releases (tasks) {
  * release
  */
 
-function release (name, ver) {
+function release(name, env) {
   path = './public/apps/' + name;
   pkg = require(path + '/app.json');
   dist = './public/dist/' + pkg.name;
-  version = ver;
+  env = env;
 
   files = pkg.dependencies.map(function (dep) {
     return 'public/bower_components/' + dep;
@@ -372,6 +382,19 @@ function release (name, ver) {
     return 'public/apps/' + name + '/' + file;
   }));
 
+  var cssJsIncludes = [
+    '<link rel="stylesheet" href="app.' + pkg.version + '.min.css"/>',
+    '<script src="app.' + pkg.version + '.min.js" type="text/javascript"></script>',
+    '<script src="component-tpls-' + pkg.version +'/templates.js" type="text/javascript"></script>'
+  ].join('')
+
+  var config = '<script>' + 'window.CONFIG =  window.CONFIG || ' + JSON.stringify(pkg.config[env]) + ';</script>';
+  gulp.src([__dirname + '/public/apps/' + pkg.name + '/production.html'])
+    .pipe(rename('index.html'))
+    .pipe(replace('<!-- INSERT_CONFIG -->', config))
+    .pipe(replace('<!-- INSERT_CSS_JS -->', cssJsIncludes))
+    .pipe(gulp.dest(dist));
+
   return gulp.start(
     'bump',
     'templates',
@@ -382,17 +405,17 @@ function release (name, ver) {
     'minify-css',
     'copy:fonts',
     'copy:img',
-    'copy:html'
+    'copy:favicons'
   );
 }
 
 /**
  * Publish
  *
- * gulp publish:testing:app1
+ * gulp publish:[env]:app1
  */
 
-function publish () {
+function publish() {
   apps.forEach(function (app) {
     // This is mostly used by wercker
     // $ gulp publish:app1
@@ -402,7 +425,7 @@ function publish () {
       });
     }
 
-    // $ gulp publish:testing:app1
+    // $ gulp publish:[env]:app1
     envs.forEach(function (env) {
       gulp.task('publish:' + env + ':' + app, function () {
         return upload.call(this, env, app);
@@ -415,30 +438,37 @@ function publish () {
  * upload
  */
 
-function upload (env, app) {
+function upload(env, app) {
   var pkg = JSON.parse(fs.readFileSync('public/apps/' + app + '/app.json'));
 
-  try {
-    var config = JSON.parse(fs.readFileSync(__dirname + '/config/s3.json'));
-    Object.keys(config[env]).forEach(function (key) {
-      process.env['S3_' + key.toUpperCase()] = config[env][key];
-    });
-  } catch (err) {
-    console.log('Make sure you copy config/s3.example.json to config/s3.json');
-    console.log(err);
+  if(process.env.S3_KEY && process.env.S3_SECRET && process.env.S3_BUCKET) {
+    console.log("Environments variables preset.")
+  } else {
+    try {
+      var config = JSON.parse(fs.readFileSync(__dirname + '/config/s3.json'));
+      Object.keys(config[env]).forEach(function (key) {
+        process.env['S3_' + key.toUpperCase()] = config[env][key];
+      });
+    } catch (err) {
+      console.log('Make sure you copy config/s3.example.json to config/s3.json or declare environment variables');
+      console.log(err);
+    }
   }
 
   // require it again so that the process.env's are replaced
   var s3creds = require('./config/s3');
   var creds = s3creds[env];
+
+  creds.params = { Bucket: creds.bucket };
+  console.log('creds are ', creds);
   var s3 = aws.create(creds);
 
   // Set max-age depending on env
-  var maxAge = require('./config/max-age.json')[process.env.NODE_ENV || 'testing'];
+  var maxAge = require('./config/max-age.json')[process.env.NODE_ENV || 'dev'];
 
   // custom headers
   var headers = {
-    'Cache-Control': 'max-age='+ maxAge +', no-transform, public'
+    'Cache-Control': 'max-age=' + maxAge + ', no-transform, public'
   };
 
   var opts = {
@@ -446,7 +476,7 @@ function upload (env, app) {
   };
 
   // pseudo dir on s3
-  function pseudoDir (prefix) {
+  function pseudoDir(prefix) {
     return function (path) {
       path.dirname = '/' + pkg.name + '/' + prefix;
       if (~fonts.indexOf(path.extname)) {
@@ -458,40 +488,15 @@ function upload (env, app) {
     };
   }
 
-  function cssOrJs (file) {
+  function cssOrJs(file) {
     // .css (4 chars) and .js (3 chars)
     var ext = file.path.slice(-4);
     return ~ext.indexOf('.js') || ~ext.indexOf('.css');
   }
 
-  // Pre-release (Automated PR deployments to s3)
-  // Deploy to s3 APP_NAME/BRANCH_NAME
-  if (env === 'testing' &&
-    process.env.WERCKER_GIT_BRANCH &&
-    !~'develop staging master'.indexOf(process.env.WERCKER_GIT_BRANCH)) {
-    gulp.src('./public/dist/' + pkg.name + '/**/**')
-      .pipe(rename(pseudoDir(process.env.WERCKER_GIT_BRANCH)))    // app1/feature/blabla
-      .pipe(gulpif(cssOrJs, aws.gzip()))
-      .pipe(s3.publish(headers, opts))
-      .pipe(aws.reporter());
-    return;
-  }
-
-  // TODO (madhums): figure out a way to pipe source streams to multiple
-  // destination streams
-  // http://stackoverflow.com/q/21951497/232619
-
-  // The dist will be uploded to app/version directory
   gulp.src('./public/dist/' + pkg.name + '/**/**')
-    .pipe(rename(pseudoDir(pkg.version))) // app1/0.2.3
     .pipe(gulpif(cssOrJs, aws.gzip()))
-    .pipe(s3.publish(headers, opts))
-    .pipe(aws.reporter());
-
-  gulp.src('./public/dist/' + pkg.name + '/**/**')
-    .pipe(rename(pseudoDir('latest')))    // app1/latest
-    .pipe(gulpif(cssOrJs, aws.gzip()))
-    .pipe(s3.publish(headers, opts))
+    .pipe(parallelize(s3.publish(headers, opts)))
     .pipe(aws.reporter());
 }
 
@@ -499,7 +504,7 @@ function upload (env, app) {
  * Build locales object
  */
 
-function buildLocales () {
+function buildLocales() {
   apps.forEach(function (app) {
     allLocales[app] = {};
     locales.forEach(function (locale) {
@@ -513,7 +518,7 @@ function buildLocales () {
  * dir
  */
 
-function dir (path) {
+function dir(path) {
   return function (app) {
     return fs.statSync(path + '/' + app).isDirectory();
   };

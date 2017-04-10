@@ -6,19 +6,21 @@
 
 module.exports = {
   testing: {
-    key: process.env.S3_KEY,
-    secret: process.env.S3_SECRET,
+    accessKeyId: process.env.S3_KEY,
+    secretAccessKey: process.env.S3_SECRET,
     bucket: process.env.S3_BUCKET,
     region: process.env.S3_REGION
   },
   staging: {
-    key: process.env.S3_KEY,
-    secret: process.env.S3_SECRET,
-    bucket: process.env.S3_BUCKET
+    accessKeyId: process.env.S3_KEY,
+    secretAccessKey: process.env.S3_SECRET,
+    bucket: process.env.S3_BUCKET,
+    region: process.env.S3_REGION
   },
   production: {
-    key: process.env.S3_KEY,
-    secret: process.env.S3_SECRET,
-    bucket: process.env.S3_BUCKET
+    accessKeyId: process.env.S3_KEY,
+    secretAccessKey: process.env.S3_SECRET,
+    bucket: process.env.S3_BUCKET,
+    region: process.env.S3_REGION
   }
 };

@@ -12,8 +12,38 @@
     "moment/moment.js"
   ],
   "components": [
+    "list-item/list-item.js"
   ],
   "files": [
     "app.js"
-  ]
+  ],
+  "config": {
+    "local": {
+        "host": "<api-host>",
+        "statics": "",
+        "uri": "",
+        "app_name": "adminapp"
+    },
+
+    "dev": {
+        "host": "<api-host>",
+        "statics": "",
+        "uri": "",
+        "app_name": "adminapp"
+    },
+
+    "staging": {
+        "host": "<api-host>",
+        "statics": "",
+        "uri": "",
+        "app_name": "adminapp"
+    },
+
+    "production": {
+        "host": "<api-host>",
+        "statics": "",
+        "uri": "",
+        "app_name": "adminapp"
+    }
+  }
 }
