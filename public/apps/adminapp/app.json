@@ -6,16 +6,20 @@
     "angular/angular.js",
     "angular-resource/angular-resource.js",
     "angular-touch/angular-touch.js",
+    "angular-aria/angular-aria.js",
     "angular-animate/angular-animate.js",
     "angular-translate/angular-translate.js",
     "angular-ui-router/release/angular-ui-router.js",
+    "angular-material/angular-material.js",
     "moment/moment.js"
   ],
   "components": [
     "list-item/list-item.js"
   ],
   "files": [
-    "app.js"
+    "app.js",
+    "navbar/navbar.js",
+    "product/product.js"
   ],
   "config": {
     "local": {

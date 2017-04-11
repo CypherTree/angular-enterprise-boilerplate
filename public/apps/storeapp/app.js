@@ -7,7 +7,6 @@
 angular.module('storeapp', [
   'ui.router',
   'ngMaterial',
-
   'navbar'
 ])
 

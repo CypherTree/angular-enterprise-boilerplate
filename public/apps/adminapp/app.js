@@ -5,7 +5,11 @@
  */
 
 angular.module('adminapp', [
-  'ui.router'
+  'ui.router',
+  'ngMaterial',
+
+  'products',
+  'navbar'
 ])
 
 /**

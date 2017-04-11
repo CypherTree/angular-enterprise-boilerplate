@@ -1,0 +1,54 @@
+
+<md-content layout-padding>
+  <form name="productForm">
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Title</label>
+        <input type="text" required name="title" ng-model="vm.item.name" />
+        <div ng-messages="productForm.title.$error">
+          <div ng-message="required">Title is required.</div>
+        </div>
+      </md-input-container>
+    </div>
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+      <label>Description </label>
+      <input type="text" md-maxlength="300" name="description" ng-model="vm.item.description" />
+      <div ng-messages="productForm.description.$error">
+        <div ng-message="required">Product Description is required.</div>
+        <div ng-message="md-maxlength">The Product description has to be less than 300 characters long.</div>
+      </div>
+      </md-input-container>
+    </div>
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+      <label>Price </label>
+      <input  type="number" name="price" ng-model="vm.item.price" />
+      <div ng-messages="productForm.price.$error">
+        <div ng-message="required">Price is required .</div>
+      </div>
+      </md-input-container>
+    </div>  <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+        <label>Avaliable Item </label>
+        <input type="number" name="available" ng-model="vm.item.available" />
+        <div ng-messages="productForm.available.$error">
+          <div ng-message="required">Available Item quantity is required.</div>
+            <div ng-message="pattern">Available Item has to be numeric value.</div>
+        </div>
+        </md-input-container>
+      </div>
+    <div layout-gt-sm="row">
+      <md-input-container>
+        <label>Category</label>
+        <md-select ng-model="vm.item.category">
+          <md-option value="mobile">Mobile
+          </md-option>
+          <md-option value="computer">Computer
+          </md-option>
+          </md-select>
+        </md-input-container>
+    </div>
+    <md-button class="md-raised md-primary"ng-click="vm.add()">Add Product</md-button>
+  </form>
+</md-content>
