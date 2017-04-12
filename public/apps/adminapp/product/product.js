@@ -44,7 +44,7 @@ function ProductsCtrl (ProductService) {
       .add()
       .then(function (newProduct) {
         vm.products.push(newProduct);
-        console.dir(vm.products);
+        vm.products.id=Date.now();
       });
   };
 
