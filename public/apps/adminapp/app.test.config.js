@@ -17,7 +17,7 @@ exports.config = {
   baseUrl: 'http://localhost:8800/adminapp#!',
   seleniumAddress: 'http://localhost:4444/wd/hub',
   specs: [
-    // 'app_test.js',
+    //  'app_test.js',
     'product/product_test.js'
 ],
   directConnect:true,

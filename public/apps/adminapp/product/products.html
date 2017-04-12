@@ -1,20 +1,28 @@
 
-  <md-button class="md-raised md-primary" ng-click="vm.addProduct()">Add Product</md-button>
+  <!-- <md-button class="md-raised md-primary" ng-click="vm.addProduct()">Add Product</md-button> -->
+  <md-button class="md-fab md-primary md-hue-2" aria-label="Profile" ng-click="vm.addProduct()">
+            add
+        </md-button>
 
-      <div  ng-cloak >
-          <div class='md-padding' layout="row" layout-wrap>
-            <md-card class="card-width" ng-repeat="product in vm.products" layout-wrap>
+      <div ng-cloak >
+          <div class='md-padding' layout="row" layout-wrap >
+            <md-card class="card-width"  layout-wrap ng-repeat="product in vm.products">
+              <md-card-title>
+                  <md-card-title-text layout-align="center end">
+                    <md-button class="pull-right md-fab md-primary md-mini md-accent md-hue-2" aria-label="Profile" ng-click="vm.addProduct(product)">
+                       edit
+                    </md-button>
+                  </md-card-title-text>
+              </md-card-title>
               <md-card-content layout-wrap>
-                <h2>{{product.name}}   <span class="pull-right">{{product.price | currency}}</span></h2>
-                <md-divider></md-divider>
-                <p class="word-wrap">{{product.description}}</p>
-                <md-divider></md-divider>
-                <h4> {{product.category}}<span class="pull-right" ng-if="product.available != 0">{{product.available}} items in stock.</span> 
-                <span class="pull-right" ng-if="product.available == 0 ">Temporarily Out of Stock.</span></h4>
+                  <h2>{{product.name}}   <span class="pull-right">{{product.price | currency}}</span></h2>
+                  <md-divider></md-divider>
+                  <p class="word-wrap">{{product.description}}</p>
+                  <md-divider></md-divider>
+                  <h4> {{product.category}}<span class="pull-right" ng-if="product.available != 0">{{product.available}} items in stock.</span>
+                  <span class="pull-right" ng-if="product.available == 0 ">Temporarily Out of Stock.</span></h4>
               </md-card-content>
-              <div class="md-actions" layout="row" layout-align="end center">
-              </div>
+              <div class="md-actions" layout="row" layout-align="end center"></div>
             </md-card>
           </div>
-        </md-content>
       </div>

@@ -11,20 +11,19 @@ function Config ($stateProvider) {
     })
 }
 
-
 ProductService.$inject = [ '$mdDialog' ]
 function ProductService ($mdDialog) {
-
-  AddProductCtrl.$inject = ['$mdDialog'];
-  function AddProductCtrl ($mdDialog) {
+  AddProductCtrl.$inject = ['$mdDialog','product'];
+  function AddProductCtrl ($mdDialog, product) {
       var vm = this;
+      vm.item = product;
       vm.add = function () {
         $mdDialog.hide(vm.item);
       };
   }
-
   this.add = function (item) {
     return $mdDialog.show({
+      locals:{product : item},
       templateUrl: '/apps/adminapp/product/add-product.html',
       clickOutsideToClose: true,
       controller: AddProductCtrl,
@@ -37,21 +36,39 @@ function ProductService ($mdDialog) {
 ProductsCtrl.$inject = ['ProductService'];
 function ProductsCtrl (ProductService) {
   var vm = this;
-  vm.products = [];
-
-  vm.addProduct = function () {
-    ProductService
-      .add()
-      .then(function (newProduct) {
-        vm.products.push(newProduct);
-        vm.products.id=Date.now();
-      });
-  };
-
-
+  vm.products=[];
+  vm.addProduct = function (product) {
+    if(!product){
+      ProductService
+        .add(product)
+        .then(function (newProduct) {
+         vm.products.push({
+            "name":newProduct.name,
+            "price":newProduct.price,
+            "available":newProduct.available,
+            "description":newProduct.description,
+            "category":newProduct.category,
+            "id":Date.now()
+          });
+          console.dir(vm.products);
+        });
+     }else{
+       ProductService
+         .add(product)
+         .then(function (newProduct) {
+          vm.products.push({
+             "name":newProduct.name,
+             "price":newProduct.price,
+             "available":newProduct.available,
+             "description":newProduct.description,
+             "category":newProduct.category,
+             "id":newProduct.id
+           });
+           console.dir(vm.products);
+         });
+  }
+};
 }
-
-
 
 angular
   .module('products', [ 'ngMaterial' ])
