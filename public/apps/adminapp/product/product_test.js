@@ -1,36 +1,36 @@
 'use strict';
 
- describe('Product module Test case', function () {
+describe('Product module Test case', function () {
 
-  it('should lead to the Add product component', function () {
-    browser.get('http://localhost:8800/adminapp#!/product');
-    browser.waitForAngular();
-    
-    var producttitle = element(by.model('vm.item.name'));
-    var productprice =  element(by.model('vm.item.price'));
-    var productdescription = element(by.model('vm.item.description'));
-    var productavailable = element(by.model('vm.item.available'));
-    var productcategory = element(by.model('vm.item.category'));
-    var addProductButton = element(by.css('md-raised md-primary'));
+       beforeEach(function() {
+         browser.get('http://localhost:8800/adminapp#!/product');
+       });
 
-    function addProduct(title,price,category,quantity,description) {
-        producttitle.sendKeys(title);
-        productprice.sendKeys(price);
-        productcategory.sendKeys(category);
-        productavailable.sendKeys(quantity);
-        productdescription.sendKeys(description)
-        addProductButton.click();
-    }
-
-      addProduct("Dell","1000","Computer","5","Dell Inc. is a multinational computer technology company based in Round Rock, Texas, that develops, sells, repairs, and supports computers and related products and services.");
-      element.all(by.css(".item a.gc-exercises-link")).then(function(Product) {
-
-      for (i = 0; i < Product.length; i++) {
-        Product[i].getText().then(function(text) {
-          console.log(text);
-
+      it('should lead to the Add product component', function () {
+        browser.get('http://localhost:8800/adminapp#!/product')
+          .then(function () {
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8800/adminapp#!/product');
         });
-      };
+      });
+
+      it('Shoud add the product while clicking on add product', function () {
+          element(by.css('[ng-click="vm.addProduct()"]')).click();
+          element(by.model('vm.item.name')).sendKeys("Dell");
+          element(by.model('vm.item.price')).sendKeys(1000);
+          element(by.model('vm.item.category')).sendKeys("Computer");
+          element(by.model('vm.item.available')).sendKeys(10);
+          element(by.model('vm.item.description')).sendKeys("Dell Inc. is a multinational computer technology company based in Round Rock, Texas, that develops, sells, repairs, and supports computers and related products and services.");
+          element(by.css('[ng-click="vm.add()"]')).click();
+        });
+
+    it('Should not accept string value to Price field', function () {
+      element(by.css('[ng-click="vm.addProduct()"]')).click();
+      element(by.model('vm.item.price')).sendKeys('abc');
+      expect((element(by.model('vm.item.price')).sendKeys('abc')).getText()).toEqual('');
     });
+
+    it('Should not accept string value to available Products field', function () {
+      element(by.css('[ng-click="vm.addProduct()"]')).click();
+      expect((element(by.model('vm.item.available')).sendKeys('abc')).getText()).toEqual('');
     });
-  });
+});
