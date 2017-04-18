@@ -1,10 +1,9 @@
-
 <md-content layout-padding>
   <form name="productForm" novalidate>
     <div layout-gt-sm="row">
       <md-input-container class="md-block" flex-gt-sm>
         <label>Title</label>
-        <input type="text" required name="title" ng-model="vm.item.name" required/>
+        <input type="text" required name="title" ng-model="vm.item.title" required/>
         <div ng-messages="productForm.title.$error">
           <div ng-message="required">Title is required.</div>
         </div>
@@ -28,7 +27,8 @@
         <div ng-message="required">Price is required .</div>
       </div>
       </md-input-container>
-    </div>  <div layout-gt-sm="row">
+    </div>
+    <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm>
         <label>Avaliable Item </label>
         <input type="number" name="available" ng-model="vm.item.available" required/>
@@ -36,7 +36,7 @@
           <div ng-message="required">Available Item quantity is required.</div>
         </div>
         </md-input-container>
-      </div>
+    </div>
     <div layout-gt-sm="row">
       <md-input-container>
         <label>Category</label>
@@ -48,6 +48,6 @@
           </md-select>
         </md-input-container>
     </div>
-    <md-button class="md-raised md-primary" ng-click="vm.add()">Add Product</md-button>
+    <md-button class="md-raised md-primary" ng-click="vm.add()" ng-disabled="!productForm.$valid">Add Product</md-button>
   </form>
 </md-content>

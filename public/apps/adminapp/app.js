@@ -7,6 +7,7 @@
 angular.module('adminapp', [
   'ui.router',
   'ngMaterial',
+  'ngResource',
 
   'products',
   'navbar'

@@ -23,5 +23,6 @@ exports.config = {
   directConnect:true,
   capabilities: {
      browserName: 'chrome',
-  }
+  },
+  allScriptsTimeout:5000000,
 };

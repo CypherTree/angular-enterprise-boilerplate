@@ -11,7 +11,8 @@
     "angular-translate/angular-translate.js",
     "angular-ui-router/release/angular-ui-router.js",
     "angular-material/angular-material.js",
-    "moment/moment.js"
+    "moment/moment.js",
+    "angular-mocks/angular-mocks.js"
   ],
   "components": [
     "list-item/list-item.js"
