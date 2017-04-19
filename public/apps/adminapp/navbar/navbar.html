@@ -1,0 +1,22 @@
+<div layout="row" layout-padding class="bg-dark-blue nav-dark" layout-align="space-between center">
+    <div>
+        <md-button ui-sref="product">Home</md-button>
+        <md-button ui-sref="mobiles">Mobiles</md-button>
+        <md-button ui-sref="computers">Computers</md-button>
+        <md-menu>
+            <md-button md-menu-origin ng-click="$mdOpenMenu()">Help</md-button>
+            <md-menu-content width="2">
+                <md-menu-item>
+                    <md-button ui-sref="help">Help</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ui-sref="about">About</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+    <div class="nav-buttons">
+        <md-button class="md-raised md-accent">My profile</md-button>
+        <md-button class="md-raised md-warn">Log Out</md-button>
+    </div>
+</div>
