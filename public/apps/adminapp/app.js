@@ -10,7 +10,8 @@ angular.module('adminapp', [
   'ngResource',
 
   'products',
-  'navbar'
+  'navbar',
+  'login'
 ])
 
 /**
@@ -19,7 +20,7 @@ angular.module('adminapp', [
 
 .constant('apiURL', window.CONFIG.host.concat(window.CONFIG.uri.replace(/\/$/, '')))
 .constant('apiHOST', window.CONFIG.host)
-
+.constant('dreamfactoryApiKey', window.CONFIG.dfApiKey)
 
 /**
  * Config
@@ -35,10 +36,25 @@ angular.module('adminapp', [
     $httpProvider.useApplyAsync(true);
     $compileProvider.debugInfoEnabled(false);
 
-    $stateProvider.state('home', {
+    $stateProvider.state('loginUser', {
       url: '/',
-      templateUrl: '/apps/adminapp/home/home.html'
+      templateUrl: '/apps/adminapp/account/login.html'
     });
+
+    $stateProvider.state('home', {
+      url: '/product',
+      templateUrl: '/apps/adminapp/product/products.html'
+    });
+  }
+])
+
+
+.run([ '$http',
+  function ($http) {
+    var dfApiKey = window.CONFIG.df_api_key;
+    if (!dfApiKey) throw 'Cannot proceed without dreamfactory api key';
+
+    $http.defaults.headers.common['X-DreamFactory-Api-Key'] = dfApiKey;
   }
 ])
 

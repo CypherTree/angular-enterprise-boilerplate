@@ -20,14 +20,16 @@
   "files": [
     "app.js",
     "navbar/navbar.js",
-    "product/product.js"
+    "product/product.js",
+    "account/account.js"
   ],
   "config": {
     "local": {
-        "host": "<api-host>",
+        "host": "https://ft-anitrai011.vz2.dreamfactory.com",
         "statics": "",
-        "uri": "",
-        "app_name": "adminapp"
+        "uri": "/api/v2",
+        "app_name": "adminapp",
+        "df_api_key": "36fda24fe5588fa4285ac6c6c2fdfbdb6b6bc9834699774c9bf777f706d05a88"
     },
 
     "dev": {
