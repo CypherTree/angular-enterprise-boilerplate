@@ -1,0 +1,39 @@
+<form name="RegisterForm" ng-submit="vm.register()">
+  <md-content class="md-padding" layout-xs="column" layout="row" layout-align="center center">
+    <div flex-xs flex-gt-xs="40" layout="column" layout-align="center center">
+        <md-card class="card-width"  layout-align="center center" >
+            <md-card-title>
+              <md-card-title-text layout-align="center center">
+                Sign Up
+               </md-card-title-text>
+            </md-card-title>
+            <md-card-content  layout-align="center center">
+              <md-input-container class="fullwidth">
+                <label>First name</label>
+                <input type="text" ng-model="vm.user.first_name" ng-required="true">
+              </md-input-container>
+              <md-input-container class="fullwidth">
+                <label>Last name</label>
+                <input type="text" ng-model="vm.user.last_name" ng-required="true">
+              </md-input-container>
+                <md-input-container class="fullwidth">
+                  <label>Email</label>
+                  <input type="email" ng-model="vm.user.email" ng-required="true">
+                </md-input-container>
+                <md-input-container class="fullwidth">
+                  <label>Password</label>
+                  <input type="password" ng-model="vm.user.new_password" ng-required="true">
+                </md-input-container>
+                <md-input-container class="fullwidth">
+                  <label>Verify Password</label>
+                  <input type="password" ng-model="vm.user.verify_password" "ng-required="true">
+                </md-input-container>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button type="submit" class="md-raised md-primary">Register</md-button>
+              <md-button type="button" class="md-raised md-primary margin-left-5" ng-click="vm.cancel()">Cancel</md-button>
+            </md-card-actions>
+        </md-card>
+  </div>
+  </md-content>
+</form>

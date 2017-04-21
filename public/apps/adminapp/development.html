@@ -12,10 +12,11 @@
 
     <script>
       window.CONFIG = window.CONFIG || {
-        host: '',
-        uri: '/api/adminapp/1.0/',
-        app_name: 'adminapp',
-        statics: ''
+        "host": "https://ft-anitrai011.vz2.dreamfactory.com",
+        "statics": "",
+        "uri": "/api/v2",
+        "app_name": "adminapp",
+        "df_api_key": "36fda24fe5588fa4285ac6c6c2fdfbdb6b6bc9834699774c9bf777f706d05a88"
       };
     </script>
 
@@ -55,7 +56,7 @@
   <body ng-controller="AppCtrl">
     <!-- Header -->
 
-    <div class="header">
+    <div class="header" ng-show="isLoggedIn">
         <navbar></navbar>
     </div>
 
