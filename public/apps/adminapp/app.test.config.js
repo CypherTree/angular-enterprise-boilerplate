@@ -16,10 +16,14 @@
 exports.config = {
   baseUrl: 'http://localhost:8800/adminapp#!',
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  specs: [
-    //  'app_test.js',
-    'product/product_test.js'
-],
+  suites: {
+    app: [
+      'app_test.js',
+      'account/account_test.js',
+      'product/product_test.js',
+      'navbar/navbar_test.js'
+    ]
+  },
   directConnect:true,
   capabilities: {
      browserName: 'chrome',

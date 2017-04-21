@@ -1,0 +1,28 @@
+
+<form name="loginForm" ng-submit="vm.login()">
+  <md-content class="md-padding" layout-xs="column" layout="row" layout-align="center center">
+    <div flex-xs flex-gt-xs="40" layout="column" layout-align="center center">
+        <md-card class="card-width"  layout-align="center center" >
+            <md-card-title>
+              <md-card-title-text layout-align="center center">
+                Dreamfactory - Addressbook 2.0
+               </md-card-title-text>
+            </md-card-title>
+            <md-card-content  layout-align="center center">
+                <md-input-container class="fullwidth">
+                  <label>Email</label>
+                  <input type="email" ng-model="vm.form.email" ng-required="true">
+                </md-input-container>
+                <md-input-container class="fullwidth">
+                  <label>Password</label>
+                  <input type="password" ng-model="vm.form.password" ng-required="true">
+                </md-input-container>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="start center">
+              <md-button type="submit" class="md-raised md-primary">Login</md-button>
+              <md-button type="button" ui-sref="register" class="md-raised md-primary margin-left-5">Sign Up</md-button>
+            </md-card-actions>
+        </md-card>
+  </div>
+  </md-content>
+</form>
