@@ -55,7 +55,6 @@ vm.login = function () {
    $rootScope.isLoggedIn = false;
    Account.register(vm.user)
      .$promise.then(function (data){
-         $http.defaults.headers.common['X-DreamFactory-Session-Token'] = data.session_token;
          $state.go('login')
     }, function(error){
       $mdToast.show(
@@ -67,7 +66,6 @@ vm.login = function () {
     });
   };
   vm.cancel = function (){
-    $rootScope.isLoggedIn = false;
     $state.go('login');
   }
 }
