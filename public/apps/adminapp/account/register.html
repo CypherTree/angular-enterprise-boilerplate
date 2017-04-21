@@ -1,42 +1,39 @@
-<md-content layout-padding class="semiwidth">
-  <form name="registerForm" novalidate>
-    <div layout-gt-sm="row">
-      <md-input-container class="md-block" flex-gt-sm>
-        <label>First Name</label>
-        <input type="text" required name="firstname" ng-model="vm.user.firstname" required/>
-        <div ng-messages="registerForm.firstname.$error">
-          <div ng-message="required">First name is required.</div>
-        </div>
-      </md-input-container>
-    </div>
-    <div layout-gt-sm="row">
-      <md-input-container class="md-block" flex-gt-sm>
-        <label>Last Name</label>
-        <input type="text" required name="lastname" ng-model="vm.user.lastname" required/>
-        <div ng-messages="registerForm.lastname.$error">
-          <div ng-message="required">Last name is required.</div>
-        </div>
-      </md-input-container>
-    </div>
-    <div layout-gt-sm="row">
-      <md-input-container class="md-block" flex-gt-sm>
-        <label>Email</label>
-        <input type="email" required name="email" ng-model="vm.user.email" required/>
-        <div ng-messages="registerForm.email.$error">
-          <div ng-message="required">Email is required.</div>
-        </div>
-      </md-input-container>
-    </div>
-    <div layout-gt-sm="row">
-      <md-input-container class="md-block" flex-gt-sm>
-      <label>Password </label>
-      <input  type="password" name="password" ng-model="vm.user.password" required />
-      <div ng-messages="registerForm.password.$error">
-        <div ng-message="required">Password is required .</div>
-      </div>
-      </md-input-container>
-    </div>
-    <md-button class="md-raised md-primary" ng-click="vm.register()" ng-disabled="!registerForm.$valid">Register</md-button>
-    <md-button class="md-raised md-primary" ng-click="vm.hide()" >cancel</md-button>
-  </form>
-</md-content>
+<form name="RegisterForm" ng-submit="vm.register()">
+  <md-content class="md-padding" layout-xs="column" layout="row" layout-align="center center">
+    <div flex-xs flex-gt-xs="40" layout="column" layout-align="center center">
+        <md-card class="card-width"  layout-align="center center" >
+            <md-card-title>
+              <md-card-title-text layout-align="center center">
+                Sign Up
+               </md-card-title-text>
+            </md-card-title>
+            <md-card-content  layout-align="center center">
+              <md-input-container class="fullwidth">
+                <label>First name</label>
+                <input type="text" ng-model="vm.user.first_name" ng-required="true">
+              </md-input-container>
+              <md-input-container class="fullwidth">
+                <label>Last name</label>
+                <input type="text" ng-model="vm.user.last_name" ng-required="true">
+              </md-input-container>
+                <md-input-container class="fullwidth">
+                  <label>Email</label>
+                  <input type="email" ng-model="vm.user.email" ng-required="true">
+                </md-input-container>
+                <md-input-container class="fullwidth">
+                  <label>Password</label>
+                  <input type="password" ng-model="vm.user.new_password" ng-required="true">
+                </md-input-container>
+                <md-input-container class="fullwidth">
+                  <label>Verify Password</label>
+                  <input type="password" ng-model="vm.user.verify_password" "ng-required="true">
+                </md-input-container>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button type="submit" class="md-raised md-primary">Register</md-button>
+              <md-button type="button" class="md-raised md-primary margin-left-5" ng-click="vm.cancel()">Cancel</md-button>
+            </md-card-actions>
+        </md-card>
+  </div>
+  </md-content>
+</form>

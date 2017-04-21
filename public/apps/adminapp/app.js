@@ -53,7 +53,6 @@ angular.module('adminapp', [
   function ($http) {
     var dfApiKey = window.CONFIG.df_api_key;
     if (!dfApiKey) throw 'Cannot proceed without dreamfactory api key';
-
     $http.defaults.headers.common['X-DreamFactory-Api-Key'] = dfApiKey;
   }
 ])
@@ -65,7 +64,7 @@ angular.module('adminapp', [
 .controller('AppCtrl', [
   '$scope',
   function ($scope) {
-
+  
   }
 ]);
 

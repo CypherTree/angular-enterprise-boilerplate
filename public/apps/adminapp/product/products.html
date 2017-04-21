@@ -1,7 +1,7 @@
-  <md-button class="md-fab md-primary md-hue-2 addProduct" aria-label="Profile" ng-click="vm.addProduct()">
+  <md-button class="md-fab md-primary md-hue-2 addProduct" aria-label="Profile" ng-click="vm.addProduct()" ng-show="isLoggedIn">
       add
   </md-button>
-  <div ng-cloak >
+  <div ng-cloak ng-show="isLoggedIn">
     <div class='md-padding' layout="row" layout-wrap >
         <md-card class="card-width"  layout-wrap ng-repeat="product in vm.products">
             <md-card-title>

@@ -25,7 +25,7 @@ function Account ($resource, apiURL) {
     },
     register: {
       method: 'POST',
-      url: apiURL + '/api/v2/user/register?login=true'
+      url: apiURL + '/user/register?login=false'
     }
   });
 }
@@ -52,6 +52,7 @@ vm.login = function () {
    });
  }
  vm.register = function () {
+   $rootScope.isLoggedIn = false;
    Account.register(vm.user)
      .$promise.then(function (data){
          $http.defaults.headers.common['X-DreamFactory-Session-Token'] = data.session_token;
@@ -65,6 +66,10 @@ vm.login = function () {
        );
     });
   };
+  vm.cancel = function (){
+    $rootScope.isLoggedIn = false;
+    $state.go('login');
+  }
 }
   angular
     .module('login', [ 'ngMaterial'])
