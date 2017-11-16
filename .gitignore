@@ -4,6 +4,7 @@
 node_modules
 public/coverage
 config/s3.json
+public/dist
 
 # OS generated files #
 ######################
